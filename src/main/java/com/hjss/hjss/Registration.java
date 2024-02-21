@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.hjss.hjss;
-
+import com.hjss.hjss.RegistrationCode;
+import java.util.*;
 import javax.swing.DefaultComboBoxModel;
 
 
@@ -13,15 +14,17 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class Registration extends javax.swing.JFrame {
 
+    
+    //Mapping for storing data
+   // Creating a HashMap to store key-value pairs
+        Map<String, String> keyValueMap = new HashMap<>();
     /**
      * Creates new form Registration
-     * 
+     *
      */
-    
-    
     public Registration() {
         initComponents();
-        
+
     }
 
     /**
@@ -44,7 +47,7 @@ public class Registration extends javax.swing.JFrame {
         levelTxT = new javax.swing.JTextField();
         numberTxT = new javax.swing.JTextField();
         EmailTxT = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        registerbtn = new javax.swing.JButton();
         JCB = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,17 +66,18 @@ public class Registration extends javax.swing.JFrame {
 
         jLabel6.setText("Email");
 
+        levelTxT.setEditable(false);
         levelTxT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 levelTxTActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
-        jButton1.setText("Register");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registerbtn.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        registerbtn.setText("Register");
+        registerbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                registerbtnActionPerformed(evt);
             }
         });
 
@@ -101,7 +105,7 @@ public class Registration extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(registerbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ageTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,35 +141,63 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jButton1)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(registerbtn)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    // Import code from RegistrationCode to here
+    private void registerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbtnActionPerformed
+        try {
+            String name = nameTxT.getText();
+            int age = Integer.parseInt(ageTxT.getText());
+            int level = Integer.parseInt(levelTxT.getText());
+            Long number = Long.parseLong(numberTxT.getText());
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+            RegistrationCode regcode = new RegistrationCode(name, age, level, number);
+            // Set Random Value for ID
+            regcode.setID();
+
+            // Display values in the console for testing
+            System.out.println("Registration: " + regcode.getName() + ", " + regcode.getAge()
+                    + ", Level: " + regcode.getLevel() + ", " + regcode.getNumber()
+                    + ", " + EmailTxT.getText() + " ID:" + regcode.getID());
+        } catch (NumberFormatException e) {
+            // Handle the case where the user input is not a valid number
+            System.err.println("Invalid input. Please enter valid numeric values.");
+        }
+    }//GEN-LAST:event_registerbtnActionPerformed
 
     private void JCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBActionPerformed
         // TODO add your handling code here:
         updateSelectedLevelTextField();
     }//GEN-LAST:event_JCBActionPerformed
+
     private void updateSelectedLevelTextField() {
+        
         try {
+            
             String selectedValue = (String) JCB.getSelectedItem();
+            
+            if(levelTxT == null)
+            {         
             int level = Integer.parseInt(selectedValue);
-            levelTxT.setText(String.valueOf(level));
+            levelTxT.setText(String.valueOf(level)); 
+            }
+            else
+            {            
+            int level = Integer.parseInt(selectedValue);
+            levelTxT.setText(String.valueOf(level));   
+            }
+
         } catch (NumberFormatException e) {
             // Handle the case where the selected item is not a valid integer
             System.err.println("Invalid selection. Please select a valid integer.");
         }
     }
-    
+
     private void levelTxTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTxTActionPerformed
         // TODO add your handling code here:
 
@@ -210,7 +242,6 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JTextField EmailTxT;
     private javax.swing.JComboBox<String> JCB;
     private javax.swing.JTextField ageTxT;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -220,5 +251,6 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JTextField levelTxT;
     private javax.swing.JTextField nameTxT;
     private javax.swing.JTextField numberTxT;
+    private javax.swing.JButton registerbtn;
     // End of variables declaration//GEN-END:variables
 }

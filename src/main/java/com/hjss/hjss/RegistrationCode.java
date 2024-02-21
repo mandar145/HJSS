@@ -4,45 +4,49 @@
  */
 package com.hjss.hjss;
 
+import java.util.Random;
+
 /**
  *
  * @author Madar
  */
 public class RegistrationCode {
-    
-    private String name; 
+    private String name;
     private int age;
     private int level;
+    private Long number;
     private int ID;
-    
-    //constructor
-    public RegistrationCode(String name,int age, int level, int ID){
+    private Random random = new Random();
+
+    // Constructor
+    public RegistrationCode(String name, int age, int level, Long number) {
         this.name = name;
-        this.age=age;
-        this.level=level;
-        this.ID=ID;
-            }
-    
-    /**
-     *
-     * @return
-     */
-    public String getName()
-    {
+        this.age = age;
+        this.level = level;
+        this.number = number;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public int getAge()
-    {
+    public int getAge() {
         return age;
     }
-    public int getLevel()
-    {
+
+    public int getLevel() {
         return level;
-    }   
-    public int getID()
-    {
+    }
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public int getID() {
         return ID;
-    }       
-    
+    }
+
+    public void setID() {
+        ID = random.nextInt(1000);
+    }
 }

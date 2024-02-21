@@ -90,8 +90,10 @@ public class Landing extends javax.swing.JFrame {
 
     private void RegisterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterBtnActionPerformed
         
+        Registration regform = new Registration();
+        regform.setVisible(true);
+        this.dispose();
         
-        System.out.println("Hello World");
     }//GEN-LAST:event_RegisterBtnActionPerformed
 
     /**
