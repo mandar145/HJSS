@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.hjss.hjss;
-import com.hjss.hjss.RegistrationCode;
+import HJSSData.RegistrationCode;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
 
@@ -17,7 +17,7 @@ public class Registration extends javax.swing.JFrame {
     
     //Mapping for storing data
    // Creating a HashMap to store key-value pairs
-        Map<String, String> keyValueMap = new HashMap<>();
+        HashMap<String, String> record = new HashMap<String, String>();
     /**
      * Creates new form Registration
      *
@@ -159,7 +159,11 @@ public class Registration extends javax.swing.JFrame {
             RegistrationCode regcode = new RegistrationCode(name, age, level, number);
             // Set Random Value for ID
             regcode.setID();
-
+            
+            //Store values in Hash Map
+            record.put("Name", name);
+            record.put("Age",String.valueOf(age));
+            
             // Display values in the console for testing
             System.out.println("Registration: " + regcode.getName() + ", " + regcode.getAge()
                     + ", Level: " + regcode.getLevel() + ", " + regcode.getNumber()
