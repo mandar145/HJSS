@@ -3,10 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.hjss.hjss;
+
 import HJSSData.RegistrationCode;
+import java.awt.Color;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
-
 
 /**
  *
@@ -14,17 +15,19 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class Registration extends javax.swing.JFrame {
 
-    
     //Mapping for storing data
-   // Creating a HashMap to store key-value pairs
-        HashMap<String, String> record = new HashMap<String, String>();
+    // Creating a HashMap to store key-value pairs
+    HashMap<String, String> record = new HashMap<String, String>();
+    private int studentID;
+
     /**
      * Creates new form Registration
      *
      */
     public Registration() {
         initComponents();
-
+        lblstatus.setVisible(false);
+        levelTxT.setText("1");
     }
 
     /**
@@ -49,6 +52,8 @@ public class Registration extends javax.swing.JFrame {
         EmailTxT = new javax.swing.JTextField();
         registerbtn = new javax.swing.JButton();
         JCB = new javax.swing.JComboBox<>();
+        lblstatus = new javax.swing.JLabel();
+        btngetID = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +93,17 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
+        lblstatus.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        lblstatus.setForeground(new java.awt.Color(0, 153, 0));
+        lblstatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        btngetID.setText("Get ID");
+        btngetID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btngetIDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,8 +120,14 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(registerbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111)
+                        .addComponent(btngetID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(registerbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ageTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,7 +135,7 @@ public class Registration extends javax.swing.JFrame {
                             .addComponent(numberTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(JCB, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,17 +155,25 @@ public class Registration extends javax.swing.JFrame {
                     .addComponent(levelTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numberTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(registerbtn)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(registerbtn)
+                            .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(68, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btngetID)
+                        .addGap(123, 123, 123))))
         );
 
         pack();
@@ -155,24 +185,50 @@ public class Registration extends javax.swing.JFrame {
             int age = Integer.parseInt(ageTxT.getText());
             int level = Integer.parseInt(levelTxT.getText());
             Long number = Long.parseLong(numberTxT.getText());
+            String email = EmailTxT.getText();
 
             RegistrationCode regcode = new RegistrationCode(name, age, level, number);
             // Set Random Value for ID
             regcode.setID();
-            
+            studentID = regcode.getID();
+
             //Store values in Hash Map
+            record.put("StudentID", String.valueOf(studentID));
             record.put("Name", name);
-            record.put("Age",String.valueOf(age));
-            
+            record.put("Age", String.valueOf(age));
+            record.put("Level", String.valueOf(level));
+            record.put("Number", String.valueOf(number));
+            record.put("Email", email);
+
             // Display values in the console for testing
+            System.out.println(record);
+            System.out.println("\n");
+
+            lblstatus.setText("Registration Sucessfull !!");
+            lblstatus.setVisible(true);
+            /*           
             System.out.println("Registration: " + regcode.getName() + ", " + regcode.getAge()
                     + ", Level: " + regcode.getLevel() + ", " + regcode.getNumber()
-                    + ", " + EmailTxT.getText() + " ID:" + regcode.getID());
+                    + ", " + EmailTxT.getText() + " ID:" + studentID);
+            
+             */
+
         } catch (NumberFormatException e) {
             // Handle the case where the user input is not a valid number
+            lblstatus.setText("Error: Invalid input. Please enter valid numeric values !!");
+            lblstatus.setForeground(Color.red);
+            lblstatus.setVisible(true);
             System.err.println("Invalid input. Please enter valid numeric values.");
         }
+        //After Registration is completed
+        nameTxT.setText("");
+        ageTxT.setText("");
+        levelTxT.setText("");
+        numberTxT.setText("");
+        EmailTxT.setText("");
+
     }//GEN-LAST:event_registerbtnActionPerformed
+
 
     private void JCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBActionPerformed
         // TODO add your handling code here:
@@ -180,20 +236,17 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_JCBActionPerformed
 
     private void updateSelectedLevelTextField() {
-        
+
         try {
-            
+
             String selectedValue = (String) JCB.getSelectedItem();
-            
-            if(levelTxT == null)
-            {         
-            int level = Integer.parseInt(selectedValue);
-            levelTxT.setText(String.valueOf(level)); 
-            }
-            else
-            {            
-            int level = Integer.parseInt(selectedValue);
-            levelTxT.setText(String.valueOf(level));   
+
+            if (levelTxT == null) {
+                int level = Integer.parseInt(selectedValue);
+                levelTxT.setText(String.valueOf(level));
+            } else {
+                int level = Integer.parseInt(selectedValue);
+                levelTxT.setText(String.valueOf(level));
             }
 
         } catch (NumberFormatException e) {
@@ -203,9 +256,24 @@ public class Registration extends javax.swing.JFrame {
     }
 
     private void levelTxTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTxTActionPerformed
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_levelTxTActionPerformed
+
+    private void btngetIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngetIDActionPerformed
+        // TODO add your handling code here:
+        getAndDisplayStudentInfo(String.valueOf(studentID));
+    }//GEN-LAST:event_btngetIDActionPerformed
+
+// Add the following method to retrieve and display student information based on ID
+private void getAndDisplayStudentInfo(String studentID) {
+        String storedStudentID = record.get("StudentID");
+
+        if (storedStudentID != null && storedStudentID.equals(studentID)) {
+            System.out.println("Student Information for ID " + studentID + ": " + record);
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -246,12 +314,14 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JTextField EmailTxT;
     private javax.swing.JComboBox<String> JCB;
     private javax.swing.JTextField ageTxT;
+    private javax.swing.JButton btngetID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lblstatus;
     private javax.swing.JTextField levelTxT;
     private javax.swing.JTextField nameTxT;
     private javax.swing.JTextField numberTxT;
