@@ -18,6 +18,11 @@ public class Registration extends javax.swing.JFrame {
     //Mapping for storing data
     // Creating a HashMap to store key-value pairs
     HashMap<String, String> record = new HashMap<String, String>();
+
+    public HashMap<String, String> getRecord() {
+        return record;
+    }
+
     private int studentID;
 
     /**
@@ -53,7 +58,7 @@ public class Registration extends javax.swing.JFrame {
         registerbtn = new javax.swing.JButton();
         JCB = new javax.swing.JComboBox<>();
         lblstatus = new javax.swing.JLabel();
-        btngetID = new javax.swing.JButton();
+        jButtonNextPage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,10 +102,11 @@ public class Registration extends javax.swing.JFrame {
         lblstatus.setForeground(new java.awt.Color(0, 153, 0));
         lblstatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        btngetID.setText("Get ID");
-        btngetID.addActionListener(new java.awt.event.ActionListener() {
+        jButtonNextPage.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jButtonNextPage.setText("Go To Main Page");
+        jButtonNextPage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btngetIDActionPerformed(evt);
+                jButtonNextPageActionPerformed(evt);
             }
         });
 
@@ -120,22 +126,21 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(111, 111, 111)
-                        .addComponent(btngetID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(registerbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ageTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(levelTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(numberTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JCB, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addComponent(JCB, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonNextPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(registerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,21 +164,17 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numberTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(registerbtn)
-                            .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(68, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btngetID)
-                        .addGap(123, 123, 123))))
+                    .addComponent(registerbtn)
+                    .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonNextPage)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,7 +189,7 @@ public class Registration extends javax.swing.JFrame {
             String email = EmailTxT.getText();
 
             RegistrationCode regcode = new RegistrationCode(name, age, level, number);
-            // Set Random Value for ID
+// Set Random Value for ID
             regcode.setID();
             studentID = regcode.getID();
 
@@ -259,12 +260,18 @@ public class Registration extends javax.swing.JFrame {
 
     }//GEN-LAST:event_levelTxTActionPerformed
 
-    private void btngetIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngetIDActionPerformed
-        // TODO add your handling code here:
-        getAndDisplayStudentInfo(String.valueOf(studentID));
-    }//GEN-LAST:event_btngetIDActionPerformed
+    private void jButtonNextPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextPageActionPerformed
 
-// Add the following method to retrieve and display student information based on ID
+        // Pass the student ID to the Menu constructor
+        Menu mp = new Menu(studentID); // Use the studentID field here
+        mp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonNextPageActionPerformed
+
+//START
+    //Below is the code to get student ID which is generated while registration (Create a button Get ID here)
+/*
+
 private void getAndDisplayStudentInfo(String studentID) {
         String storedStudentID = record.get("StudentID");
 
@@ -274,6 +281,8 @@ private void getAndDisplayStudentInfo(String studentID) {
             System.out.println("Student not found.");
         }
     }
+
+
 
     /**
      * @param args the command line arguments
@@ -314,7 +323,7 @@ private void getAndDisplayStudentInfo(String studentID) {
     private javax.swing.JTextField EmailTxT;
     private javax.swing.JComboBox<String> JCB;
     private javax.swing.JTextField ageTxT;
-    private javax.swing.JButton btngetID;
+    private javax.swing.JButton jButtonNextPage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
