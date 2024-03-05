@@ -23,6 +23,7 @@ public class Registration extends javax.swing.JFrame {
         return record;
     }
 
+    private int lvl;
     private int studentID;
 
     /**
@@ -185,6 +186,8 @@ public class Registration extends javax.swing.JFrame {
             String name = nameTxT.getText();
             int age = Integer.parseInt(ageTxT.getText());
             int level = Integer.parseInt(levelTxT.getText());
+            // pass the value of level to slot bookinng page
+            
             Long number = Long.parseLong(numberTxT.getText());
             String email = EmailTxT.getText();
 
@@ -262,8 +265,10 @@ public class Registration extends javax.swing.JFrame {
 
     private void jButtonNextPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextPageActionPerformed
 
+        //pass level
+        lvl = Integer.parseInt(record.get("Level"));
         // Pass the student ID to the Menu constructor
-        Menu mp = new Menu(studentID); // Use the studentID field here
+        Menu mp = new Menu(studentID,lvl); // Use the studentID field here
         mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonNextPageActionPerformed

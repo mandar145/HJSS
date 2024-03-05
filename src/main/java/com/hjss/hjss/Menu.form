@@ -42,8 +42,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelStudentID" min="-2" pref="104" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabelTitle" min="-2" pref="150" max="-2" attributes="0"/>
-                  <EmptySpace pref="128" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButtonBooking" max="32767" attributes="0"/>
+                      <Component id="jLabelTitle" max="32767" attributes="0"/>
+                      <Component id="jButtonViewBooking" pref="150" max="32767" attributes="0"/>
+                      <Component id="jButtonAttend" max="32767" attributes="0"/>
+                      <Component id="jButtonLearnerReport" max="32767" attributes="0"/>
+                      <Component id="jButtonCoachReport" max="32767" attributes="0"/>
+                      <Component id="jButtonReview" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="122" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -55,7 +63,19 @@
                       <Component id="jLabelStudentID" max="32767" attributes="0"/>
                       <Component id="jLabelTitle" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="267" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonBooking" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jButtonViewBooking" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonAttend" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonLearnerReport" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonCoachReport" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonReview" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -73,9 +93,42 @@
         <Component class="javax.swing.JLabel" name="jLabelStudentID">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bell MT" size="18" style="1"/>
+              <Font name="Bell MT" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonBooking">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Booking"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBookingActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonViewBooking">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="View Booking"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonAttend">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Attend"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonLearnerReport">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Learner Report"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonCoachReport">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Coach Report"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonReview">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Review"/>
           </Properties>
         </Component>
       </SubComponents>
