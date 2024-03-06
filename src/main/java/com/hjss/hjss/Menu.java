@@ -14,11 +14,13 @@ public class Menu extends javax.swing.JFrame {
     
     
     private int level;
+    private int ID;
 
     public Menu(int studentID, int lvl) {
         initComponents();
         jLabelStudentID.setText("Student ID :" + String.valueOf(studentID));
         level = lvl;
+        ID = studentID;
         
     }
 
@@ -124,7 +126,7 @@ public class Menu extends javax.swing.JFrame {
     private void jButtonBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookingActionPerformed
         // TODO add your handling code here: 
         try {
-            SlotBooking sb = new SlotBooking(level); // Make sure SlotBooking is correctly defined
+            SlotBooking sb = new SlotBooking(level,ID); // Make sure SlotBooking is correctly defined
             sb.setVisible(true);
             this.dispose(); // Closes the current window
         } catch (Exception e) {

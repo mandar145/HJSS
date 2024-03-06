@@ -17,19 +17,21 @@ public class SlotBooking extends javax.swing.JFrame {
 
     private HashMap<String, String> slotBookings;
     private HashMap<String, String> coachAssignments;
-    private String a;
-    Registration reg= new Registration();
-    
+    private String slot;
+    Registration reg = new Registration();
+
     /**
      * Creates new form SlotBooking
      */
-    public SlotBooking(int level) {
+    public SlotBooking(int level, int ID) {
         initComponents();
-        
+        infoLabel.setVisible(false);
+        slotBookings = new HashMap<>();
+        coachAssignments = new HashMap<>();
+        initializeCoaches();
         System.out.println(String.valueOf(level));
+        System.out.println(String.valueOf(ID));
     }
-    
-    
 
     private void initializeCoaches() {
         // Assign coaches to each slot
@@ -67,7 +69,14 @@ public class SlotBooking extends javax.swing.JFrame {
         slotComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday 4pm-5pm", "Wednesday 5pm-6pm", "Friday 6pm-7pm", "Saturday 7pm-8pm" }));
 
         bookButton.setText("Book Slot");
+        bookButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookButtonActionPerformed(evt);
+            }
+        });
 
+        infoLabel.setFont(new java.awt.Font("Bell MT", 1, 12)); // NOI18N
+        infoLabel.setForeground(new java.awt.Color(0, 153, 51));
         infoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         infoLabel.setText("Book a Slot");
 
@@ -80,9 +89,12 @@ public class SlotBooking extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(slotComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bookButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(130, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,9 +105,9 @@ public class SlotBooking extends javax.swing.JFrame {
                 .addComponent(slotComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(bookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -111,6 +123,26 @@ public class SlotBooking extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookButtonActionPerformed
+        // TODO add your handling code here:
+        // Fetch the currently selected slot from the combo box
+        slot = (String) slotComboBox.getSelectedItem();
+        if (slotBookings.containsKey(slot)) {
+            infoLabel.setText("This slot is already booked.");
+        } else {
+            slotBookings.put(slot, "Booked");
+            String coach = coachAssignments.get(slot);
+            if (coach != null) {
+                infoLabel.setText("Booked " + slot + " with " + coach);
+            } else {
+                infoLabel.setText("Booked " + slot + ", but no coach is available.");
+            }
+        }
+        infoLabel.setVisible(true);
+
+
+    }//GEN-LAST:event_bookButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -139,7 +171,7 @@ public class SlotBooking extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SlotBooking(123).setVisible(true);
+                new SlotBooking(123, 1234).setVisible(true);
             }
         });
     }
