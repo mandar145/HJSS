@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author Madar
  */
-public class RegistrationCode {
+public class Learner {
     private String name;
     private int age;
     private int level;
@@ -19,7 +19,7 @@ public class RegistrationCode {
     private Random random = new Random();
 
     // Constructor
-    public RegistrationCode(String name, int age, int level, Long number) {
+    public Learner(String name, int age, int level, Long number) {
         this.name = name;
         this.age = age;
         this.level = level;

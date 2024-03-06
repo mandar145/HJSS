@@ -4,7 +4,7 @@
  */
 package com.hjss.hjss;
 
-import HJSSData.RegistrationCode;
+import HJSSData.Learner;
 import java.awt.Color;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
@@ -179,19 +179,25 @@ public class Registration extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbtnActionPerformed
         try {
             String name = nameTxT.getText();
             int age = Integer.parseInt(ageTxT.getText());
+        // Validate the age
+        if (age < 4 || age > 11) {
+            lblstatus.setText("Error: Age must be between 4 and 11.");
+            lblstatus.setForeground(Color.red);
+            lblstatus.setVisible(true);
+            return; // Stop further processing
+        }                                    
             int level = Integer.parseInt(levelTxT.getText());
-            // pass the value of level to slot bookinng page
-            
             Long number = Long.parseLong(numberTxT.getText());
             String email = EmailTxT.getText();
 
-            RegistrationCode regcode = new RegistrationCode(name, age, level, number);
+            Learner regcode = new Learner(name, age, level, number);
 // Set Random Value for ID
             regcode.setID();
             studentID = regcode.getID();
@@ -209,14 +215,8 @@ public class Registration extends javax.swing.JFrame {
             System.out.println("\n");
 
             lblstatus.setText("Registration Sucessfull !!");
+            lblstatus.setForeground(Color.green);
             lblstatus.setVisible(true);
-            /*           
-            System.out.println("Registration: " + regcode.getName() + ", " + regcode.getAge()
-                    + ", Level: " + regcode.getLevel() + ", " + regcode.getNumber()
-                    + ", " + EmailTxT.getText() + " ID:" + studentID);
-            
-             */
-
         } catch (NumberFormatException e) {
             // Handle the case where the user input is not a valid number
             lblstatus.setText("Error: Invalid input. Please enter valid numeric values !!");
@@ -273,21 +273,6 @@ public class Registration extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonNextPageActionPerformed
 
-//START
-    //Below is the code to get student ID which is generated while registration (Create a button Get ID here)
-/*
-
-private void getAndDisplayStudentInfo(String studentID) {
-        String storedStudentID = record.get("StudentID");
-
-        if (storedStudentID != null && storedStudentID.equals(studentID)) {
-            System.out.println("Student Information for ID " + studentID + ": " + record);
-        } else {
-            System.out.println("Student not found.");
-        }
-    }
-
-
 
     /**
      * @param args the command line arguments
@@ -319,7 +304,9 @@ private void getAndDisplayStudentInfo(String studentID) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new Registration().setVisible(true);
+                
             }
         });
     }
