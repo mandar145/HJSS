@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.hjss.hjss;
-
 import HJSSData.Learner;
 import java.awt.Color;
 import java.util.*;
@@ -18,7 +17,7 @@ public class Registration extends javax.swing.JFrame {
     //Mapping for storing data
     // Creating a HashMap to store key-value pairs
     HashMap<String, String> record = new HashMap<String, String>();
-
+  
     public HashMap<String, String> getRecord() {
         return record;
     }
@@ -34,6 +33,7 @@ public class Registration extends javax.swing.JFrame {
         initComponents();
         lblstatus.setVisible(false);
         levelTxT.setText("1");
+        jButtonNextPage.setVisible(false);
     }
 
     /**
@@ -217,12 +217,15 @@ public class Registration extends javax.swing.JFrame {
             lblstatus.setText("Registration Sucessfull !!");
             lblstatus.setForeground(Color.green);
             lblstatus.setVisible(true);
+            jButtonNextPage.setVisible(true);
+            
         } catch (NumberFormatException e) {
             // Handle the case where the user input is not a valid number
             lblstatus.setText("Error: Invalid input. Please enter valid numeric values !!");
             lblstatus.setForeground(Color.red);
             lblstatus.setVisible(true);
             System.err.println("Invalid input. Please enter valid numeric values.");
+            
         }
         //After Registration is completed
         nameTxT.setText("");
