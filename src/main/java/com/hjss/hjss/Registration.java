@@ -5,6 +5,10 @@
 package com.hjss.hjss;
 import HJSSData.Learner;
 import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
 
@@ -45,6 +49,7 @@ public class Registration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupGender = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -60,6 +65,12 @@ public class Registration extends javax.swing.JFrame {
         JCB = new javax.swing.JComboBox<>();
         lblstatus = new javax.swing.JLabel();
         jButtonNextPage = new javax.swing.JButton();
+        jLabelGender = new javax.swing.JLabel();
+        jRadioButtonMale = new javax.swing.JRadioButton();
+        jRadioButtonFemale = new javax.swing.JRadioButton();
+        jRadioButtonNA = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
+        emergencyContactTxT = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +92,12 @@ public class Registration extends javax.swing.JFrame {
         levelTxT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 levelTxTActionPerformed(evt);
+            }
+        });
+
+        EmailTxT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmailTxTActionPerformed(evt);
             }
         });
 
@@ -111,26 +128,61 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
+        jLabelGender.setText("Gender");
+
+        buttonGroupGender.add(jRadioButtonMale);
+        jRadioButtonMale.setText("Male");
+
+        buttonGroupGender.add(jRadioButtonFemale);
+        jRadioButtonFemale.setText("Female");
+
+        buttonGroupGender.add(jRadioButtonNA);
+        jRadioButtonNA.setText("Prefer Not to Say");
+
+        jLabel7.setText("Emergency Contact");
+
+        emergencyContactTxT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emergencyContactTxTActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelGender))
+                                .addGap(27, 27, 27))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButtonMale, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonNA, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ageTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ageTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(levelTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(numberTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -140,8 +192,10 @@ public class Registration extends javax.swing.JFrame {
                             .addComponent(jButtonNextPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(registerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
-                        .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emergencyContactTxT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,30 +206,40 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ageTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ageTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelGender)
+                    .addComponent(jRadioButtonMale)
+                    .addComponent(jRadioButtonFemale)
+                    .addComponent(jRadioButtonNA))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(levelTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numberTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EmailTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emergencyContactTxT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(registerbtn))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(registerbtn)
-                    .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonNextPage)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -186,54 +250,65 @@ public class Registration extends javax.swing.JFrame {
         try {
             String name = nameTxT.getText();
             int age = Integer.parseInt(ageTxT.getText());
-        // Validate the age
-        if (age < 4 || age > 11) {
-            lblstatus.setText("Error: Age must be between 4 and 11.");
-            lblstatus.setForeground(Color.red);
-            lblstatus.setVisible(true);
-            return; // Stop further processing
-        }                                    
+            // Validate the age
+            if (age < 4 || age > 11) {
+                lblstatus.setText("Error: Age must be between 4 and 11.");
+                lblstatus.setForeground(Color.red);
+                lblstatus.setVisible(true);
+                return; // Stop further processing
+            }
+            String gender = "";
+            // Determine which gender radio button is selected
+            if (jRadioButtonMale.isSelected()) {
+                gender = "Male";
+            } else if (jRadioButtonFemale.isSelected()) {
+                gender = "Female";
+            } else if (jRadioButtonNA.isSelected()) {
+                gender = "Prefer Not to Say";
+            }
+
             int level = Integer.parseInt(levelTxT.getText());
             Long number = Long.parseLong(numberTxT.getText());
             String email = EmailTxT.getText();
+            // Assume you have a text field for emergency contact now
+            String emergencyContact = emergencyContactTxT.getText(); // Replace `emergencyContactTxT` with your actual text field's name
 
-            Learner regcode = new Learner(name, age, level, number);
-// Set Random Value for ID
-            regcode.setID();
+            // Update the constructor call to include gender and emergency contact
+            Learner regcode = new Learner(name, gender, age, level, number, emergencyContact);
+
+            // Setting the ID is now handled within the Learner constructor
             studentID = regcode.getID();
 
-            //Store values in Hash Map
+            // Store values in HashMap
             record.put("StudentID", String.valueOf(studentID));
             record.put("Name", name);
+            record.put("Gender", gender);
             record.put("Age", String.valueOf(age));
             record.put("Level", String.valueOf(level));
             record.put("Number", String.valueOf(number));
             record.put("Email", email);
+            record.put("EmergencyContact", emergencyContact); // Store emergency contact
 
-            // Display values in the console for testing
-            System.out.println(record);
-            System.out.println("\n");
-
-            lblstatus.setText("Registration Sucessfull !!");
+            lblstatus.setText("Registration Successful !!");
             lblstatus.setForeground(Color.green);
             lblstatus.setVisible(true);
             jButtonNextPage.setVisible(true);
-            
+
         } catch (NumberFormatException e) {
-            // Handle the case where the user input is not a valid number
             lblstatus.setText("Error: Invalid input. Please enter valid numeric values !!");
             lblstatus.setForeground(Color.red);
             lblstatus.setVisible(true);
-            System.err.println("Invalid input. Please enter valid numeric values.");
-            
         }
-        //After Registration is completed
+        // Clear the form fields after registration
         nameTxT.setText("");
         ageTxT.setText("");
-        levelTxT.setText("");
+        buttonGroupGender.clearSelection(); // Clear gender selection
+        levelTxT.setText("1"); // Reset level if needed
         numberTxT.setText("");
         EmailTxT.setText("");
-
+        emergencyContactTxT.setText(""); // Clear the emergency contact field
+        //Call save details in CSV file Function 
+        saveRegistrationDataToFile(record);
     }//GEN-LAST:event_registerbtnActionPerformed
 
 
@@ -261,6 +336,24 @@ public class Registration extends javax.swing.JFrame {
             System.err.println("Invalid selection. Please select a valid integer.");
         }
     }
+    
+    
+    //Save Data in CSV File
+    private void saveRegistrationDataToFile(HashMap<String, String> record) {
+        // Define the file path and name
+        String filePath = "registration_data.csv";
+        try (FileWriter fw = new FileWriter(filePath, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
+            // Write data to file in CSV format
+            out.println(record.get("StudentID") + "," + record.get("Name") + "," + record.get("Gender") + ","
+                    + record.get("Age") + "," + record.get("Level") + "," + record.get("Number") + ","
+                    + record.get("Email") + "," + record.get("EmergencyContact"));
+            System.out.println("Registration data saved to file.");
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving registration data to file.");
+            e.printStackTrace();
+        }
+    }
+  
 
     private void levelTxTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTxTActionPerformed
 
@@ -275,6 +368,14 @@ public class Registration extends javax.swing.JFrame {
         mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonNextPageActionPerformed
+
+    private void EmailTxTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailTxTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailTxTActionPerformed
+
+    private void emergencyContactTxTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emergencyContactTxTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emergencyContactTxTActionPerformed
 
 
     /**
@@ -318,6 +419,8 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JTextField EmailTxT;
     private javax.swing.JComboBox<String> JCB;
     private javax.swing.JTextField ageTxT;
+    private javax.swing.ButtonGroup buttonGroupGender;
+    private javax.swing.JTextField emergencyContactTxT;
     private javax.swing.JButton jButtonNextPage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -325,6 +428,11 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelGender;
+    private javax.swing.JRadioButton jRadioButtonFemale;
+    private javax.swing.JRadioButton jRadioButtonMale;
+    private javax.swing.JRadioButton jRadioButtonNA;
     private javax.swing.JLabel lblstatus;
     private javax.swing.JTextField levelTxT;
     private javax.swing.JTextField nameTxT;

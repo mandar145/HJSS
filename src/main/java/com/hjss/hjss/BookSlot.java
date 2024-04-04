@@ -4,6 +4,7 @@
  */
 package com.hjss.hjss;
 
+import HJSSData.BookingInfo;
 import HJSSData.Coach;
 import java.awt.Color;
 import java.text.ParseException;
@@ -21,17 +22,18 @@ import javax.swing.DefaultListModel;
 public class BookSlot extends javax.swing.JFrame {
 
     // Variable and function Declarations
-    //private HashSet<String> selectedDates = new HashSet<>();
+    private HashMap<String, BookingInfo> bookings = new HashMap<>();
     private HashMap<String, String> selectedDates;
+
     private int studentLevel;
     private int studentID;
 
     // Create an array to store Coach instances
     private Coach[] coaches = new Coach[]{
-        new Coach("Coach A"),
-        new Coach("Coach B"),
-        new Coach("Coach C"),
-        new Coach("Coach D")
+        new Coach("ID1", "Coach A"),
+        new Coach("ID2", "Coach B"),
+        new Coach("ID3", "Coach C"),
+        new Coach("ID4", "Coach D")
     };
     // Counter for the current coach index
     private int currentCoachIndex = 0;
@@ -52,7 +54,7 @@ public class BookSlot extends javax.swing.JFrame {
         selectedDates = new HashMap<>();
         labelavailable.setText("Available Time Slots on Selected Date :");
         jList1.setVisible(false);
-        
+        TimeSlotListner();
     }
 
     /**
@@ -73,6 +75,7 @@ public class BookSlot extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         labelavailable = new java.awt.Label();
+        displayinfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,11 +102,14 @@ public class BookSlot extends javax.swing.JFrame {
         labelavailable.setForeground(new java.awt.Color(102, 102, 102));
         labelavailable.setText("label1");
 
+        displayinfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        displayinfo.setText("Available Slots : Monday, Wednesday, Friday and Saturday ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -123,6 +129,7 @@ public class BookSlot extends javax.swing.JFrame {
                             .addComponent(labelavailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36)))
                 .addContainerGap())
+            .addComponent(displayinfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +139,9 @@ public class BookSlot extends javax.swing.JFrame {
                     .addComponent(jLabelCurrentLvl, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(displayinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBookSlot, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -157,73 +166,68 @@ public class BookSlot extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void TimeSlotListner() {
+        //ACTION LISTNER FOR USER WHEN HE SELECTS A TIME SLOT ALL THE DETAILS WILL BE SAVED 
+        jList1.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                String timeSlot = jList1.getSelectedValue();
+                if (timeSlot == null) {
+                    return; // No selection
+                }
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String dateKey = sdf.format(jDateChooser1.getDate()) + " " + timeSlot;
+
+                if (bookings.containsKey(dateKey)) {
+                    System.out.println("This time slot is already booked. Please select another slot.");
+                    return;
+                }
+
+                Coach assignedCoach = coaches[currentCoachIndex % coaches.length];
+                currentCoachIndex++;
+
+                BookingInfo bookingInfo = new BookingInfo(jDateChooser1.getDate(), assignedCoach.getCname(), studentLevel, studentID, timeSlot);
+                bookings.put(dateKey, bookingInfo);
+
+                System.out.println("Booking Successful: " + bookingInfo);
+            }
+        });
+
+    }
+
     private void jButtonBookSlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookSlotActionPerformed
+
         // Get the selected date from jDateChooser
         Date selectedDate = jDateChooser1.getDate();
-        labelavailable.setVisible(true);
         // Ensure a date is selected
         if (selectedDate == null) {
             System.out.println("No date selected.");
             return;
         }
-
-        // Format the date to eliminate the time part and simplify comparison
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMM yyyy");
-        String formattedDate = sdf.format(selectedDate);
-
-        // Check if the date is already booked
-        if (selectedDates.containsKey(formattedDate)) {
-            System.out.println("Date Already Booked");
-            return;
-        }
-
-        // Prepare the model for jList1
-        DefaultListModel<String> model = new DefaultListModel<>();
-        // Set calendar time to the selected date to check the day of week
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(selectedDate);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        // Checking the day of the week to determine if it's a valid booking day
+        // Prepare the model for jList1 based on the day of week
+        DefaultListModel<String> model = new DefaultListModel<>();
         if (dayOfWeek == Calendar.MONDAY || dayOfWeek == Calendar.WEDNESDAY || dayOfWeek == Calendar.FRIDAY) {
-            System.out.println("It's Monday, Wednesday, or Friday.");            
-            jList1.setVisible(true);
-// Logic to check and handle specific time slots goes here.
-            // For example, check if the selected time is between 4-7pm.
             model.addElement("4-5pm");
             model.addElement("5-6pm");
             model.addElement("6-7pm");
-
         } else if (dayOfWeek == Calendar.SATURDAY) {
-            System.out.println("It's Saturday.");
-            jList1.setVisible(true);
-            // Logic to check and handle specific time slots for Saturday goes here.
-            // For example, check if the selected time is between 2-4pm.
-            // This part of the logic is not shown as jDateChooser1 does not include time selection.
             model.addElement("2-3pm");
             model.addElement("3-4pm");
-
         } else {
             System.out.println("Fail - Selected day is not available for lessons.");
             labelavailable.setText("Fail - Selected day is not available for lessons.");
             labelavailable.setForeground(Color.red);
-            
             return;
         }
-        
-        
-        
-    // Set the model to jList1 to display the time slots
-    jList1.setModel(model);
-    jList1.setEnabled(true); // Make sure the list is enabled if it was previously disabled
-        // Assuming the time slot is valid, proceed with booking
-        selectedDates.put(formattedDate, ""); // Use an empty string or relevant info as the value
-        System.out.println("Booking Success: " + selectedDates);
 
-        // Assign a coach in sequence
-        Coach assignedCoach = coaches[currentCoachIndex];
-        System.out.println("Assigned Coach: " + assignedCoach.getCname());
-        currentCoachIndex = (currentCoachIndex + 1) % coaches.length;
+        // Set the model to jList1 to display the time slots
+        jList1.setModel(model);
+        jList1.setVisible(true);
+        jScrollPane1.setVisible(true); // Make sure the scroll pane is visible if it contains jList1
+
     }//GEN-LAST:event_jButtonBookSlotActionPerformed
 
     /**
@@ -262,6 +266,7 @@ public class BookSlot extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel displayinfo;
     private javax.swing.JButton jButtonBookSlot;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
