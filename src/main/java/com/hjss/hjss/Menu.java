@@ -4,7 +4,7 @@
  */
 package com.hjss.hjss;
 
-import com.hjss.hjss.SlotBooking;
+//import com.hjss.hjss.SlotBooking;
 
 /**
  *
@@ -36,12 +36,12 @@ public class Menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabelTitle = new javax.swing.JLabel();
         jLabelStudentID = new javax.swing.JLabel();
-        jButtonBooking = new javax.swing.JButton();
         jButtonViewBooking = new javax.swing.JButton();
         jButtonAttend = new javax.swing.JButton();
         jButtonLearnerReport = new javax.swing.JButton();
         jButtonCoachReport = new javax.swing.JButton();
         jButtonReview = new javax.swing.JButton();
+        jButtonBookingSlot = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,13 +51,6 @@ public class Menu extends javax.swing.JFrame {
 
         jLabelStudentID.setFont(new java.awt.Font("Bell MT", 1, 12)); // NOI18N
         jLabelStudentID.setText("jLabel1");
-
-        jButtonBooking.setText("Booking");
-        jButtonBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBookingActionPerformed(evt);
-            }
-        });
 
         jButtonViewBooking.setText("View Booking");
 
@@ -69,6 +62,8 @@ public class Menu extends javax.swing.JFrame {
 
         jButtonReview.setText("Review");
 
+        jButtonBookingSlot.setText("Booking ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -78,13 +73,13 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jLabelStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonViewBooking, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                     .addComponent(jButtonAttend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonLearnerReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCoachReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonBookingSlot, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,9 +89,9 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelTitle)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonBooking))
-                    .addComponent(jLabelStudentID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonBookingSlot))
+                    .addComponent(jLabelStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonViewBooking)
                 .addGap(18, 18, 18)
@@ -124,18 +119,6 @@ public class Menu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookingActionPerformed
-        // TODO add your handling code here: 
-        try {
-            SlotBooking sb = new SlotBooking(level,ID); // Make sure SlotBooking is correctly defined
-            sb.setVisible(true);
-            this.dispose(); // Closes the current window
-        } catch (Exception e) {
-            e.printStackTrace(); // This can help identify any runtime issues within SlotBooking initialization
-        }
-
-    }//GEN-LAST:event_jButtonBookingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,7 +157,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAttend;
-    private javax.swing.JButton jButtonBooking;
+    private javax.swing.JButton jButtonBookingSlot;
     private javax.swing.JButton jButtonCoachReport;
     private javax.swing.JButton jButtonLearnerReport;
     private javax.swing.JButton jButtonReview;

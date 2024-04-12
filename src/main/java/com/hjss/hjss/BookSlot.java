@@ -7,6 +7,7 @@ package com.hjss.hjss;
 import HJSSData.BookingInfo;
 import HJSSData.Coach;
 import java.awt.Color;
+import java.io.*;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.DefaultListModel;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,39 +27,29 @@ import javax.swing.DefaultListModel;
 public class BookSlot extends javax.swing.JFrame {
 
     // Variable and function Declarations
-    private HashMap<String, BookingInfo> bookings = new HashMap<>();
-    private HashMap<String, String> selectedDates;
-
+    // Stores student ID and their list of bookings
+    private HashMap<Integer, List<BookingInfo>> studentBookings;
     private int studentLevel;
     private int studentID;
 
-    // Create an array to store Coach instances
-    private Coach[] coaches = new Coach[]{
-        new Coach("ID1", "Coach A"),
-        new Coach("ID2", "Coach B"),
-        new Coach("ID3", "Coach C"),
-        new Coach("ID4", "Coach D")
-    };
-    // Counter for the current coach index
-    private int currentCoachIndex = 0;
-
     /**
-     * Creates new form BookSlot
+     * Creates new form BookSlot CONSTRUCTOR OF BOOKINGSLOT PAGE
      */
     public BookSlot(int level, int ID) {
-
         initComponents();
-        // Disable Manual input to Calender 
-        jDateChooser1.getDateEditor().setEnabled(false);
-        // Retreive Student ID and Level From Main Page and set to label
         this.studentID = ID;
         jLabelStudentID.setText("Student ID: " + String.valueOf(ID));
         this.studentLevel = level;
         jLabelCurrentLvl.setText("Learner Level: " + String.valueOf(level));
-        selectedDates = new HashMap<>();
-        labelavailable.setText("Available Time Slots on Selected Date :");
-        jList1.setVisible(false);
-        TimeSlotListner();
+        // Initialize the studentBookings HashMap
+        studentBookings = new HashMap<>();
+
+    }
+
+    //method to get coach names 
+    private String[] getCoachNames() {
+        // This should pull the coach names from your data storage, for now, it's just an example
+        return new String[]{"Coach A", "Coach B", "Coach C", "Coach D"};
     }
 
     /**
@@ -69,13 +64,17 @@ public class BookSlot extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabelCurrentLvl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jButtonBookSlot = new javax.swing.JButton();
         jLabelStudentID = new javax.swing.JLabel();
+        jLabelDay = new javax.swing.JLabel();
+        comboBoxDay = new javax.swing.JComboBox<>();
+        jLabelGrade = new javax.swing.JLabel();
+        comboBoxGradeLevel = new javax.swing.JComboBox<>();
+        labelCoachName = new javax.swing.JLabel();
+        comboBoxCoachName = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        labelavailable = new java.awt.Label();
-        displayinfo = new javax.swing.JLabel();
+        textAreaDetails = new javax.swing.JTextArea();
+        jButtonBook = new javax.swing.JButton();
+        Show = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,50 +85,78 @@ public class BookSlot extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Slot Booking");
 
-        jButtonBookSlot.setText("Select Date");
-        jButtonBookSlot.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBookSlotActionPerformed(evt);
-            }
-        });
-
         jLabelStudentID.setFont(new java.awt.Font("Bell MT", 0, 10)); // NOI18N
         jLabelStudentID.setText("Student ID");
 
-        jScrollPane1.setViewportView(jList1);
+        jLabelDay.setText("Day");
 
-        labelavailable.setFont(new java.awt.Font("Bell MT", 0, 12)); // NOI18N
-        labelavailable.setForeground(new java.awt.Color(102, 102, 102));
-        labelavailable.setText("label1");
+        comboBoxDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        displayinfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        displayinfo.setText("Available Slots : Monday, Wednesday, Friday and Saturday ");
+        jLabelGrade.setText("Grade Level Selection");
+
+        comboBoxGradeLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        labelCoachName.setText("Coach Name Selection");
+
+        comboBoxCoachName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        textAreaDetails.setEditable(false);
+        textAreaDetails.setColumns(20);
+        textAreaDetails.setRows(5);
+        jScrollPane1.setViewportView(textAreaDetails);
+
+        jButtonBook.setText("Book");
+        jButtonBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBookActionPerformed(evt);
+            }
+        });
+
+        Show.setText("Show");
+        Show.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelCurrentLvl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(jLabelStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelDay, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonBookSlot, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelavailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(36, 36, 36)))
+                                .addComponent(comboBoxDay, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(labelCoachName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxCoachName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxGradeLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonBook, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Show, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)))))
                 .addContainerGap())
-            .addComponent(displayinfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,18 +166,32 @@ public class BookSlot extends javax.swing.JFrame {
                     .addComponent(jLabelCurrentLvl, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(displayinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBookSlot, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelDay)
+                            .addComponent(comboBoxDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelGrade)
+                            .addComponent(comboBoxGradeLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(Show)))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCoachName)
+                    .addComponent(comboBoxCoachName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonBook))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelavailable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                .addGap(60, 60, 60))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        comboBoxDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday 9am - 10pm", "Wednesday 9am - 10pm", "Friday 9am - 10pm", "Saturday 9am - 10pm" }));
+        comboBoxGradeLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        comboBoxCoachName.setModel(new DefaultComboBoxModel<>(getCoachNames()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,70 +207,114 @@ public class BookSlot extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void TimeSlotListner() {
-        //ACTION LISTNER FOR USER WHEN HE SELECTS A TIME SLOT ALL THE DETAILS WILL BE SAVED 
-        jList1.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                String timeSlot = jList1.getSelectedValue();
-                if (timeSlot == null) {
-                    return; // No selection
-                }
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String dateKey = sdf.format(jDateChooser1.getDate()) + " " + timeSlot;
+    private void bookLesson() {
+        //Get values from Combo box
+        String selectedDay = (String) comboBoxDay.getSelectedItem();
+        int selectedGradeLevel = Integer.parseInt(comboBoxGradeLevel.getSelectedItem().toString());
+        String selectedCoachName = (String) comboBoxCoachName.getSelectedItem();
 
-                if (bookings.containsKey(dateKey)) {
-                    System.out.println("This time slot is already booked. Please select another slot.");
-                    return;
-                }
-
-                Coach assignedCoach = coaches[currentCoachIndex % coaches.length];
-                currentCoachIndex++;
-
-                BookingInfo bookingInfo = new BookingInfo(jDateChooser1.getDate(), assignedCoach.getCname(), studentLevel, studentID, timeSlot);
-                bookings.put(dateKey, bookingInfo);
-
-                System.out.println("Booking Successful: " + bookingInfo);
-            }
-        });
+        // Check for duplicate and limit
+        if (isDuplicateOrLimitReached(selectedDay, selectedCoachName)) {
+            return; // Exit if a duplicate booking exists or limit is reached
+        }
+        // Proceed to check availability and potentially book the lesson
+        BookingInfo newBooking = new BookingInfo(selectedDay, selectedCoachName, selectedGradeLevel, studentID);
+        //create new list  
+        List<BookingInfo> bookingsList = studentBookings.getOrDefault(studentID, new ArrayList<>());
+        bookingsList.add(newBooking);
+        //add list and student id to hashmap
+        studentBookings.put(studentID, bookingsList); // Save the new booking list
+        //save to CSV file function
+        saveBookingToFile(newBooking);
+        textAreaDetails.setText("Booking Confirmed : Day & Time: " + selectedDay + " Coach: " + selectedCoachName + " Grade: " + selectedGradeLevel);
 
     }
 
-    private void jButtonBookSlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookSlotActionPerformed
+    //Function for isDuplicateOrLimitReached
+    private boolean isDuplicateOrLimitReached(String selectedDay, String selectedCoachName) {
+        List<BookingInfo> bookingsList = studentBookings.get(studentID);
 
-        // Get the selected date from jDateChooser
-        Date selectedDate = jDateChooser1.getDate();
-        // Ensure a date is selected
-        if (selectedDate == null) {
-            System.out.println("No date selected.");
-            return;
+        if (bookingsList != null) {
+            if (bookingsList.size() >= 4) {
+                JOptionPane.showMessageDialog(this, "You have reached the maximum number of bookings allowed.", "Booking Limit Reached", JOptionPane.WARNING_MESSAGE);
+                return true;
+            }
+
+            for (BookingInfo booking : bookingsList) {
+                if (booking.DayTime.equals(selectedDay) && booking.coachName.equals(selectedCoachName)) {
+                    JOptionPane.showMessageDialog(this, "You have already booked this time slot.", "Duplicate Booking", JOptionPane.WARNING_MESSAGE);
+                    return true;
+                }
+            }
         }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(selectedDate);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        // Prepare the model for jList1 based on the day of week
-        DefaultListModel<String> model = new DefaultListModel<>();
-        if (dayOfWeek == Calendar.MONDAY || dayOfWeek == Calendar.WEDNESDAY || dayOfWeek == Calendar.FRIDAY) {
-            model.addElement("4-5pm");
-            model.addElement("5-6pm");
-            model.addElement("6-7pm");
-        } else if (dayOfWeek == Calendar.SATURDAY) {
-            model.addElement("2-3pm");
-            model.addElement("3-4pm");
+        return false;
+    }
+
+    // SAVE TO CSV
+    private void saveBookingToFile(BookingInfo booking) {
+        String filePath = "bookings.csv"; // The path to the CSV file
+
+        try (FileWriter fw = new FileWriter(filePath, true); // Open the file in append mode
+                 BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
+            // Write the booking to the CSV file
+            out.println(booking.studentID + ","
+                    + booking.DayTime + ","
+                    + booking.coachName + ","
+                    + booking.studentLevel);
+        } catch (IOException e) {
+            e.printStackTrace(); // Properly handle this exception
+        }
+    }
+
+    private void jButtonBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookActionPerformed
+        // TODO add your handling code here:
+        bookLesson();
+    }//GEN-LAST:event_jButtonBookActionPerformed
+//////////////////////////////////////////////CODE FOR RETREIVING DATA FROM CSV FILE FROM STUDENT ID ////////////////////////////////////
+    private List<BookingInfo> getBookingsFromCSV(int studentID) {
+        List<BookingInfo> bookingsList = new ArrayList<>();
+        String filePath = "bookings.csv";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            JOptionPane.showMessageDialog(null, "Booking data file does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+            return bookingsList; // Return empty list
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length >= 4 && Integer.parseInt(data[0]) == studentID) { // Check for minimum expected data length
+                    String dayTime = data[1];
+                    String coachName = data[2];
+                    int level = Integer.parseInt(data[3]);
+                    bookingsList.add(new BookingInfo(dayTime, coachName, level, studentID));
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading from the booking file.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid booking data format.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return bookingsList;
+    }
+//BUTTON SHOW CODE
+    private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed
+        // TODO add your handling code here:
+        List<BookingInfo> bookings = getBookingsFromCSV(studentID);
+        if (bookings.isEmpty()) {
+            textAreaDetails.setText("No bookings found for Student ID: " + studentID);
         } else {
-            System.out.println("Fail - Selected day is not available for lessons.");
-            labelavailable.setText("Fail - Selected day is not available for lessons.");
-            labelavailable.setForeground(Color.red);
-            return;
+            StringBuilder sb = new StringBuilder();
+            for (BookingInfo booking : bookings) {
+                sb.append(booking.toString()).append("\n");
+            }
+            textAreaDetails.setText(sb.toString());
         }
-
-        // Set the model to jList1 to display the time slots
-        jList1.setModel(model);
-        jList1.setVisible(true);
-        jScrollPane1.setVisible(true); // Make sure the scroll pane is visible if it contains jList1
-
-    }//GEN-LAST:event_jButtonBookSlotActionPerformed
-
+    }//GEN-LAST:event_ShowActionPerformed
+//////////////////////////////////////////////CODE FOR RETREIVING DATA FROM CSV FILE END ////////////////////////////////////
+    
     /**
      * @param args the command line arguments
      */
@@ -266,15 +351,19 @@ public class BookSlot extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel displayinfo;
-    private javax.swing.JButton jButtonBookSlot;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JButton Show;
+    private javax.swing.JComboBox<String> comboBoxCoachName;
+    private javax.swing.JComboBox<String> comboBoxDay;
+    private javax.swing.JComboBox<String> comboBoxGradeLevel;
+    private javax.swing.JButton jButtonBook;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCurrentLvl;
+    private javax.swing.JLabel jLabelDay;
+    private javax.swing.JLabel jLabelGrade;
     private javax.swing.JLabel jLabelStudentID;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.Label labelavailable;
+    private javax.swing.JLabel labelCoachName;
+    private javax.swing.JTextArea textAreaDetails;
     // End of variables declaration//GEN-END:variables
 }

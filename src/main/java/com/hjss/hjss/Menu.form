@@ -43,13 +43,13 @@
                   <Component id="jLabelStudentID" min="-2" pref="104" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButtonBooking" max="32767" attributes="0"/>
                       <Component id="jLabelTitle" max="32767" attributes="0"/>
                       <Component id="jButtonViewBooking" pref="150" max="32767" attributes="0"/>
                       <Component id="jButtonAttend" max="32767" attributes="0"/>
                       <Component id="jButtonLearnerReport" max="32767" attributes="0"/>
                       <Component id="jButtonCoachReport" max="32767" attributes="0"/>
                       <Component id="jButtonReview" max="32767" attributes="0"/>
+                      <Component id="jButtonBookingSlot" alignment="0" pref="150" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="122" max="32767" attributes="0"/>
               </Group>
@@ -62,10 +62,10 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButtonBooking" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jButtonBookingSlot" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jLabelStudentID" max="32767" attributes="0"/>
+                      <Component id="jLabelStudentID" min="-2" pref="64" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButtonViewBooking" min="-2" max="-2" attributes="0"/>
@@ -100,14 +100,6 @@
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonBooking">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Booking"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBookingActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="jButtonViewBooking">
           <Properties>
             <Property name="text" type="java.lang.String" value="View Booking"/>
@@ -131,6 +123,11 @@
         <Component class="javax.swing.JButton" name="jButtonReview">
           <Properties>
             <Property name="text" type="java.lang.String" value="Review"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonBookingSlot">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Booking "/>
           </Properties>
         </Component>
       </SubComponents>
