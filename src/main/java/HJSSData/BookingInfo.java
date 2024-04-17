@@ -21,12 +21,14 @@
         public String coachName;
         public int studentLevel;
         public int studentID;
+        public String status; 
 
-        public BookingInfo(String DayTime, String coachName, int studentLevel, int studentID) {
+        public BookingInfo(String DayTime, String coachName, int studentLevel, int studentID, String status) {
             this.DayTime = DayTime;
             this.coachName = coachName;
             this.studentLevel = studentLevel;
             this.studentID = studentID;
+            this.status = status;
         }
 
 
@@ -34,7 +36,7 @@
         @Override
         public String toString() {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            return "Day & Time: " + DayTime + ", Coach: " + coachName + ", Student Level: " + studentLevel + ", Student ID: " + studentID;
+            return "Day & Time: " + DayTime + ", Coach: " + coachName + ", Student Level: " + studentLevel + ", Student ID: " + studentID + " Status: " + status;
         }
 
     }

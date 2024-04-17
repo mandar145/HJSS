@@ -1,0 +1,89 @@
+commit d7a2db268835e2d51baa31c65951f56b109081b6
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Fri Apr 12 23:04:47 2024 +0100
+
+    modified code bookingslot
+
+commit 4aabab4b2729b072311e666966fc6296f3812a59
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Thu Apr 4 01:10:02 2024 +0100
+
+    new classes created for Lesson, Learner, Feedback, booking info and modified Coach class. Next Step is to modify BookSlot page according to new classes.
+
+commit 4717704f48941150a92137de27cba5353815ec82
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Mar 20 23:56:31 2024 +0000
+
+    jcalender added , new page Booking Slot created to replace SlotBooking.
+
+commit 847f737c8323e436bcb3438e0f86fb8a7091a95f
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Mar 6 18:41:46 2024 +0000
+
+    Slot Booking class modifyed added new functionalities (age check 4-11,level check, level increment, max 4 slot limit i.e for 1 month= 4 weeks ) 06-03-2024 Time: 06.40pm
+
+commit f19e27fcb12d90c76059b38b3c977912ce7faa65
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Mar 6 11:41:13 2024 +0000
+
+    Booking slot page sucessfully Data 06-03-2024 Time: 11.41am
+
+commit fa58cc849826adb9417824a401d056cb97a48e0c
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Tue Mar 5 01:52:41 2024 +0000
+
+    passed value of level to booking slot page sucessfully Data 05-03-2024 Time: 1.52am
+
+commit b786065bfeae5a57df11464ebdd3449336f4d166
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Mon Mar 4 21:22:32 2024 +0000
+
+    Student ID passed to Menu Class sucessfully Data 04-03-2024 Time: 9.22pm
+
+commit 8bfca75bd51fc98e75e1c2287823aa28404d29ce
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Sat Mar 2 01:16:49 2024 +0000
+
+    Storing and Retreving Value of Student with their ID Sucessfull Data 02-03-2024 Time: 1.15am
+
+commit 77f22d3fc1eb65c1d7a29d457b3068cad4c8671f
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Feb 28 14:33:23 2024 +0000
+
+    working on HashMap method to store registration Data 28-02-2024 Time: 2.31pm
+
+commit 5a2ccc49550ace1530069908f52421993e0354c0
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Feb 21 23:56:03 2024 +0000
+
+    Registration part sucessfull 21-02-2024 Time: 11.55am
+
+commit 27bd056e4f8a6082139f02dc2e69957cbf0b58e6
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Feb 21 02:44:02 2024 +0000
+
+    Continuation - added: Registration Class and Registration Jform, Function for predefined values of  level added.
+
+commit f16b3a83de11e4bcfc77c09c880e5b9ab940181a
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Feb 21 02:26:52 2024 +0000
+
+    added: Registration Class and Registration Jform, Function for predefined values of  level added.
+
+commit b124c63500a10a8f77f3f2290e7ddf0180c4660c
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Feb 21 01:03:26 2024 +0000
+
+    2 commit 21-02-2024!!
+
+commit ee6149f21798d1f932e8dd7a597f6d558d6302bb
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Tue Feb 20 21:03:06 2024 +0000
+
+    first commit !!
+
+commit 2e61ce8ef49c706fc3e285591c345f13145ca0a6
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Tue Feb 20 20:44:29 2024 +0000
+
+    first commit

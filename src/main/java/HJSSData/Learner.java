@@ -7,6 +7,8 @@ package HJSSData;
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -14,8 +16,11 @@ import java.util.ArrayList;
  * @author Madar
  */
 public class Learner {
-    
-    private static int nextId = 1; // Static counter to ensure unique IDs
+   //for random number 
+    private static final Random rand = new Random();
+    private static final Set<Integer> usedIds = new HashSet<>();  // To keep track of used IDs
+    private static final int ID_RANGE = 10000;  // Adjust the range based on expected number of Learners
+
     private String name;
     private String gender;
     private int age;
@@ -39,7 +44,12 @@ public class Learner {
     
     // Unique ID generation method
     private synchronized static int getNextUniqueId() {
-        return nextId++;
+               int newId;
+        do {
+            newId = rand.nextInt(ID_RANGE) + 1;  // Ensure ID is never zero
+        } while (usedIds.contains(newId));  // Retry if ID is already used
+        usedIds.add(newId);  // Mark this ID as used
+        return newId;
     }
 
     // Getters and setters, and other methods
