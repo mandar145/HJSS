@@ -185,7 +185,7 @@ public class ViewBookings extends javax.swing.JFrame {
         String filePath = "bookings.csv";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))) { // False to overwrite the file
             for (BookingInfo booking : bookings) {
-                bw.write(booking.studentID + "," + booking.DayTime + "," + booking.coachName + "," + booking.studentLevel + "," + booking.status + "\n");
+                bw.write(booking.studentID + "," + booking.DayTime + "," + booking.coachName + "," + booking.studentLevel + "," + booking.status + "," + booking.BookingID + "\n");
             }
         } catch (IOException e) {
             jTextAreaViewAllBookings.setText("Error writing to bookings file: " + e.getMessage());
@@ -210,25 +210,26 @@ public class ViewBookings extends javax.swing.JFrame {
 
     ////////////////retreive data from CSV  ////////////////////////////////
     private List<BookingInfo> getBookingsFromCSV() {
-        List<BookingInfo> bookingsList = new ArrayList<>();
-        String filePath = "bookings.csv"; // Ensure this is the correct path to your CSV file
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length == 5) {
-                    int id = Integer.parseInt(data[0]);
-                    String dayTime = data[1];
-                    String coachName = data[2];
-                    int level = Integer.parseInt(data[3]);
-                    String status = data[4];
-                    bookingsList.add(new BookingInfo(dayTime, coachName, level, id, status));
-                }
+    List<BookingInfo> bookingsList = new ArrayList<>();
+    String filePath = "bookings.csv"; // Ensure this is the correct path to your CSV file
+    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(",");
+            if (data.length == 6) { // Ensure there are six elements (including BookingID)
+                int id = Integer.parseInt(data[0]);
+                String dayTime = data[1];
+                String coachName = data[2];
+                int level = Integer.parseInt(data[3]);
+                String status = data[4];
+                String bookingID = data[5];
+                bookingsList.add(new BookingInfo(dayTime, coachName, level, id, status));
             }
-        } catch (IOException e) {
-            jTextAreaViewAllBookings.setText("Error reading the bookings file: " + e.getMessage());
         }
-        return bookingsList;
+    } catch (IOException e) {
+        jTextAreaViewAllBookings.setText("Error reading the bookings file: " + e.getMessage());
+    }
+    return bookingsList;
     }
     //////////////////////Display all the data ////////////////
 

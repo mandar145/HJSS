@@ -43,12 +43,10 @@ public class BookSlot extends javax.swing.JFrame {
         jLabelCurrentLvl.setText("Learner Level: " + String.valueOf(level));
         // Initialize the studentBookings HashMap
         studentBookings = new HashMap<>();
-
     }
 
     //method to get coach names 
     private String[] getCoachNames() {
-        // This should pull the coach names from your data storage, for now, it's just an example
         return new String[]{"Coach A", "Coach B", "Coach C", "Coach D"};
     }
 
@@ -209,6 +207,7 @@ public class BookSlot extends javax.swing.JFrame {
         int selectedGradeLevel = Integer.parseInt(comboBoxGradeLevel.getSelectedItem().toString());
         String selectedCoachName = (String) comboBoxCoachName.getSelectedItem();
         String status = "Confirmed";
+        String bookingID = BookingInfo.generateBookingID();
         // Check for duplicate and limit
         if (isDuplicateOrLimitReached(selectedDay, selectedCoachName)) {
             return; // Exit if a duplicate booking exists or limit is reached
@@ -222,7 +221,7 @@ public class BookSlot extends javax.swing.JFrame {
         studentBookings.put(studentID, bookingsList); // Save the new booking list
         //save to CSV file function
         saveBookingToFile(newBooking);
-        textAreaDetails.setText("Booking Status: " + status + "  Day & Time: " + selectedDay + " Coach: " + selectedCoachName + " Grade: " + selectedGradeLevel + "Learner ID: " + studentID  );
+         textAreaDetails.setText("Booking Confirmed with ID: " + newBooking.BookingID + "\nDay & Time: " + selectedDay + "\nCoach: " + selectedCoachName + "\nGrade: " + selectedGradeLevel + "\nLearner ID: " + studentID);
 
     }
 
@@ -255,10 +254,11 @@ public class BookSlot extends javax.swing.JFrame {
                  BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
             // Write the booking to the CSV file including the status
             out.println(booking.studentID + ","
-                    + booking.DayTime + ","
-                    + booking.coachName + ","
-                    + booking.studentLevel + ","
-                    + booking.status); // Corrected to properly concatenate the status
+                + booking.DayTime + ","
+                + booking.coachName + ","
+                + booking.studentLevel + ","
+                + booking.status + ","
+                + booking.BookingID); 
         } catch (IOException e) {
             e.printStackTrace(); // Properly handle this exception
         }
