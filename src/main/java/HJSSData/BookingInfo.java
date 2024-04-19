@@ -25,23 +25,30 @@ public class BookingInfo {
     public String status;
     public String BookingID;
 
+    // Constructor for new bookings
     public BookingInfo(String DayTime, String coachName, int studentLevel, int studentID, String status) {
         this.DayTime = DayTime;
         this.coachName = coachName;
         this.studentLevel = studentLevel;
         this.studentID = studentID;
         this.status = status;
-        this.BookingID = generateBookingID();
+        this.BookingID = generateBookingID(); // Only generate for new bookings
     }
 
-    /**
-     * Generate a unique booking ID.
-     */
+    // Constructor for existing bookings (from CSV)
+    public BookingInfo(String DayTime, String coachName, int studentLevel, int studentID, String status, String BookingID) {
+        this.DayTime = DayTime;
+        this.coachName = coachName;
+        this.studentLevel = studentLevel;
+        this.studentID = studentID;
+        this.status = status;
+        this.BookingID = BookingID; // Use existing BookingID
+    }
+
     public static String generateBookingID() {
-        return generateRandomString(3) + generateRandomNumber(4); // 3 letters and 4 numbers
+        return generateRandomString(3) + generateRandomNumber(4);
     }
 
-     //Generate a random string of letters.
     private static String generateRandomString(int length) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder sb = new StringBuilder();
@@ -53,19 +60,18 @@ public class BookingInfo {
         }
         return sb.toString();
     }
-    //Generate Random Number
-        private static String generateRandomNumber(int length) {
+
+    private static String generateRandomNumber(int length) {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            sb.append(random.nextInt(10));  // Append random digit
+            sb.append(random.nextInt(10));
         }
         return sb.toString();
     }
 
     @Override
     public String toString() {
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         return "BookingID: " + BookingID + ", Day & Time: " + DayTime + ", Coach: " + coachName + ", Student Level: " + studentLevel + ", Student ID: " + studentID + ", Status: " + status;
     }
 

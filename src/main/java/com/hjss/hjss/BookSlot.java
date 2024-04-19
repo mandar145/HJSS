@@ -217,6 +217,7 @@ public class BookSlot extends javax.swing.JFrame {
         if (isDuplicateOrLimitReached(selectedDay, selectedCoachName)) {
             return; // Exit if a duplicate booking exists or limit is reached
         }
+        status = "Confirmed";
         String bookingID = BookingInfo.generateBookingID();
         // Proceed to check availability and potentially book the lesson
         BookingInfo newBooking = new BookingInfo(selectedDay, selectedCoachName, selectedGradeLevel, studentID, status);
