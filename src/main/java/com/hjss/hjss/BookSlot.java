@@ -43,6 +43,11 @@ public class BookSlot extends javax.swing.JFrame {
         jLabelCurrentLvl.setText("Learner Level: " + String.valueOf(level));
         // Initialize the studentBookings HashMap
         studentBookings = new HashMap<>();
+
+        //Update time asper coach
+        comboBoxCoachName.setModel(new DefaultComboBoxModel<>(getCoachNames()));
+        comboBoxCoachName.setSelectedIndex(0); // Set to the first coach
+        
     }
 
     //method to get coach names 
@@ -73,6 +78,10 @@ public class BookSlot extends javax.swing.JFrame {
         textAreaDetails = new javax.swing.JTextArea();
         jButtonBook = new javax.swing.JButton();
         Back = new javax.swing.JButton();
+        jLabelWeek = new javax.swing.JLabel();
+        jComboBoxWeek = new javax.swing.JComboBox<>();
+        jLabeltime = new javax.swing.JLabel();
+        jComboBoxTime = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -90,6 +99,11 @@ public class BookSlot extends javax.swing.JFrame {
         jLabelDay.setText("Day");
 
         comboBoxDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxDayActionPerformed(evt);
+            }
+        });
 
         jLabelGrade.setText("Grade Level Selection");
 
@@ -98,6 +112,11 @@ public class BookSlot extends javax.swing.JFrame {
         labelCoachName.setText("Coach Name Selection");
 
         comboBoxCoachName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxCoachName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxCoachNameActionPerformed(evt);
+            }
+        });
 
         textAreaDetails.setEditable(false);
         textAreaDetails.setColumns(20);
@@ -118,6 +137,19 @@ public class BookSlot extends javax.swing.JFrame {
             }
         });
 
+        jLabelWeek.setText("Week");
+
+        jComboBoxWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabeltime.setText("Time");
+
+        jComboBoxTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTimeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -125,32 +157,38 @@ public class BookSlot extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addComponent(jLabelCurrentLvl, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabelDay, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboBoxDay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(labelCoachName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboBoxCoachName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabelGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboBoxGradeLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(81, 81, 81)
+                                .addComponent(labelCoachName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxCoachName, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
                                 .addComponent(jButtonBook, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxGradeLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(jComboBoxWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelDay, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(comboBoxDay, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabeltime, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -162,29 +200,41 @@ public class BookSlot extends javax.swing.JFrame {
                     .addComponent(jLabelCurrentLvl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxWeek, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDay)
-                    .addComponent(comboBoxDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelGrade)
-                    .addComponent(comboBoxGradeLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCoachName)
-                    .addComponent(comboBoxCoachName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBook))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(jLabeltime, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 37, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCoachName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboBoxCoachName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonBook)))
+                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelGrade)
+                            .addComponent(comboBoxGradeLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        comboBoxDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday 9am - 10pm", "Wednesday 9am - 10pm", "Friday 9am - 10pm", "Saturday 9am - 10pm" }));
+        comboBoxDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Wednesday", "Friday", "Saturday" }));
         comboBoxGradeLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         comboBoxCoachName.setModel(new DefaultComboBoxModel<>(getCoachNames()));
+        jComboBoxWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,23 +254,31 @@ public class BookSlot extends javax.swing.JFrame {
     private void bookLesson() {
         //Get values from Combo box
         String selectedDay = (String) comboBoxDay.getSelectedItem();
+        String selectedTime = (String) jComboBoxTime.getSelectedItem();
         int selectedGradeLevel = Integer.parseInt(comboBoxGradeLevel.getSelectedItem().toString());
         String selectedCoachName = (String) comboBoxCoachName.getSelectedItem();
+        int Week = Integer.parseInt(jComboBoxWeek.getSelectedItem().toString());
         String status = "Pending";
 
+        // Validate time and coach compatibility
+        if (!isTimeCompatibleWithCoach(selectedTime, selectedCoachName)) {
+            JOptionPane.showMessageDialog(this, "This coach is not available at the selected time.", "Booking Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         // Check if the selected grade level is appropriate
         if (selectedGradeLevel > studentLevel + 1 || selectedGradeLevel < studentLevel) {
             JOptionPane.showMessageDialog(this, "You can only book lessons for your current level or one level higher.", "Grade Level Error", JOptionPane.ERROR_MESSAGE);
             return; // Stop further execution if the grade level is not correct
         }
-        // Check for duplicate and limit
-        if (isDuplicateOrLimitReached(selectedDay, selectedCoachName)) {
-            return; // Exit if a duplicate booking exists or limit is reached
+        // Check for duplicate bookings
+        if (isDuplicateOrLimitReached(Week, selectedDay, selectedTime)) {
+            return;
         }
+
         status = "Confirmed";
         String bookingID = BookingInfo.generateBookingID();
         // Proceed to check availability and potentially book the lesson
-        BookingInfo newBooking = new BookingInfo(selectedDay, selectedCoachName, selectedGradeLevel, studentID, status);
+        BookingInfo newBooking = new BookingInfo(Week, selectedDay, selectedTime, selectedCoachName, selectedGradeLevel, studentID, status);
         //create new list  
         List<BookingInfo> bookingsList = studentBookings.getOrDefault(studentID, new ArrayList<>());
         bookingsList.add(newBooking);
@@ -228,28 +286,35 @@ public class BookSlot extends javax.swing.JFrame {
         studentBookings.put(studentID, bookingsList); // Save the new booking list
         //save to CSV file function
         saveBookingToFile(newBooking);
-        textAreaDetails.setText("Booking Confirmed with ID: " + newBooking.BookingID + "\nDay & Time: " + selectedDay + "\nCoach: " + selectedCoachName + "\nGrade: " + selectedGradeLevel + "\nLearner ID: " + studentID);
+        textAreaDetails.setText("Booking Confirmed with ID: " + newBooking.BookingID + "\nWeek: " + Week + "\nDay: " + selectedDay + "\nTime: " + selectedTime + "\nCoach: " + selectedCoachName + "\nGrade: " + selectedGradeLevel + "\nLearner ID: " + studentID);
 
     }
 
-    //Function for isDuplicateOrLimitReached
-    private boolean isDuplicateOrLimitReached(String selectedDay, String selectedCoachName) {
-        List<BookingInfo> bookingsList = studentBookings.get(studentID);
+    //method to check if the selected time is compatible with the coach
+    private boolean isTimeCompatibleWithCoach(String time, String coach) {
+        switch (coach) {
+            case "Coach A":
+                return "4-5pm".equals(time);
+            case "Coach B":
+                return "5-6pm".equals(time);
+            case "Coach C":
+                return "6-7pm".equals(time);
+            case "Coach D":
+                return "2-3pm".equals(time) || "3-4pm".equals(time);
+            default:
+                return false;
+        }
+    }
 
-        if (bookingsList != null) {
-            if (bookingsList.size() >= 4) {
-                JOptionPane.showMessageDialog(this, "You have reached the maximum number of bookings allowed.", "Booking Limit Reached", JOptionPane.WARNING_MESSAGE);
+    //Function for isDuplicateOrLimitReached
+    private boolean isDuplicateOrLimitReached(int week, String day, String time) {
+        List<BookingInfo> bookingsList = studentBookings.get(studentID);
+        for (BookingInfo booking : bookingsList) {
+            if (booking.Week == week && booking.DayTime.equals(day) && booking.Time.equals(time)) {
+                JOptionPane.showMessageDialog(this, "You have already booked this slot.", "Booking Error", JOptionPane.ERROR_MESSAGE);
                 return true;
             }
-
-            for (BookingInfo booking : bookingsList) {
-                if (booking.DayTime.equals(selectedDay) && booking.coachName.equals(selectedCoachName)) {
-                    JOptionPane.showMessageDialog(this, "You have already booked this time slot.", "Duplicate Booking", JOptionPane.WARNING_MESSAGE);
-                    return true;
-                }
-            }
         }
-
         return false;
     }
 
@@ -261,7 +326,9 @@ public class BookSlot extends javax.swing.JFrame {
                  BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
             // Write the booking to the CSV file including the status
             out.println(booking.studentID + ","
+                    + booking.Week + ","
                     + booking.DayTime + ","
+                    + booking.Time + ","
                     + booking.coachName + ","
                     + booking.studentLevel + ","
                     + booking.status + ","
@@ -283,6 +350,68 @@ public class BookSlot extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BackActionPerformed
 
+    private void jComboBoxTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTimeActionPerformed
+
+    // This method updates the time comboBox based on the selected day
+    private void updateTimesBasedOnDayAndCoach() {
+        String selectedDay = (String) comboBoxDay.getSelectedItem();
+        String selectedCoach = (String) comboBoxCoachName.getSelectedItem();
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        if ("Coach D".equals(selectedCoach) && "Saturday".equals(selectedDay)) {
+            model.addElement("2-3pm");
+            model.addElement("3-4pm");
+        } else if (!"Saturday".equals(selectedDay)) {
+            switch (selectedCoach) {
+                case "Coach A":
+                    model.addElement("4-5pm");
+                    break;
+                case "Coach B":
+                    model.addElement("5-6pm");
+                    break;
+                case "Coach C":
+                    model.addElement("6-7pm");
+                    break;
+            }
+        }
+
+        jComboBoxTime.setModel(model);
+    }
+
+    private void comboBoxDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDayActionPerformed
+        // TODO add your handling code here:
+        updateTimesBasedOnDayAndCoach();
+    }//GEN-LAST:event_comboBoxDayActionPerformed
+    
+    private void comboBoxCoachNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCoachNameActionPerformed
+        // TODO add your handling code here:
+        updateTimesBasedOnDayAndCoach();
+    }//GEN-LAST:event_comboBoxCoachNameActionPerformed
+//    private void updateTimesBasedOnCoach() {
+//        String selectedCoach = comboBoxCoachName.getSelectedItem().toString();
+//        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+//
+//        switch (selectedCoach) {
+//            case "Coach A":
+//                model.addElement("4-5pm");
+//                break;
+//            case "Coach B":
+//                model.addElement("5-6pm");
+//                break;
+//            case "Coach C":
+//                model.addElement("6-7pm");
+//                break;
+//            case "Coach D":
+//                model.addElement("2-3pm");
+//                model.addElement("3-4pm");
+//                break;
+//        }
+//
+//        jComboBoxTime.setModel(model);
+//    }
+//
+// 
     /**
      * @param args the command line arguments
      */
@@ -324,11 +453,15 @@ public class BookSlot extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxDay;
     private javax.swing.JComboBox<String> comboBoxGradeLevel;
     private javax.swing.JButton jButtonBook;
+    private javax.swing.JComboBox<String> jComboBoxTime;
+    private javax.swing.JComboBox<String> jComboBoxWeek;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCurrentLvl;
     private javax.swing.JLabel jLabelDay;
     private javax.swing.JLabel jLabelGrade;
     private javax.swing.JLabel jLabelStudentID;
+    private javax.swing.JLabel jLabelWeek;
+    private javax.swing.JLabel jLabeltime;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelCoachName;

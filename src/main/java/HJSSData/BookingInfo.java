@@ -18,7 +18,9 @@ import java.util.Random;
  */
 public class BookingInfo {
 
+    public int Week;
     public String DayTime;
+    public String Time;
     public String coachName;
     public int studentLevel;
     public int studentID;
@@ -26,8 +28,11 @@ public class BookingInfo {
     public String BookingID;
 
     // Constructor for new bookings
-    public BookingInfo(String DayTime, String coachName, int studentLevel, int studentID, String status) {
+    public BookingInfo(int Week,String DayTime,String Time, String coachName, int studentLevel, int studentID, String status) {
+        
+        this.Week = Week;
         this.DayTime = DayTime;
+        this.Time = Time;
         this.coachName = coachName;
         this.studentLevel = studentLevel;
         this.studentID = studentID;
@@ -36,8 +41,10 @@ public class BookingInfo {
     }
 
     // Constructor for existing bookings (from CSV)
-    public BookingInfo(String DayTime, String coachName, int studentLevel, int studentID, String status, String BookingID) {
+    public BookingInfo(int Week,String DayTime,String Time, String coachName, int studentLevel, int studentID, String status, String BookingID) {
+        this.Week = Week;
         this.DayTime = DayTime;
+        this.Time = Time;
         this.coachName = coachName;
         this.studentLevel = studentLevel;
         this.studentID = studentID;
@@ -70,9 +77,10 @@ public class BookingInfo {
         return sb.toString();
     }
 
-    @Override
-    public String toString() {
-        return "BookingID: " + BookingID + ", Day & Time: " + DayTime + ", Coach: " + coachName + ", Student Level: " + studentLevel + ", Student ID: " + studentID + ", Status: " + status;
-    }
+@Override
+public String toString() {
+    return "BookingID: " + BookingID + ", Week: " + Week +", Day: " + DayTime +", Time: " + Time + ", Coach: " + coachName
+           + ", Learner Grade: " + studentLevel + ", Learner ID: " + studentID + ", Status: " + status;
+}
 
 }

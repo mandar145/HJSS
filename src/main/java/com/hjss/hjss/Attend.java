@@ -19,11 +19,17 @@ import java.util.List;
  */
 public class Attend extends javax.swing.JFrame {
 
+    private int studentID;
+    private int studentLevel;
+
     /**
      * Creates new form Attend
      */
-    public Attend() {
+    public Attend(int ID, int level) {
         initComponents();
+
+        this.studentID = ID;
+        this.studentLevel = level;
     }
 
     /**
@@ -43,6 +49,7 @@ public class Attend extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDisplay = new javax.swing.JTextArea();
         jButtonAttend = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,24 +72,37 @@ public class Attend extends javax.swing.JFrame {
             }
         });
 
+        back.setText("Go Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabelbookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelTitlle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAttend, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 99, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabelbookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTitlle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAttend, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(22, 22, 22)
@@ -102,8 +122,10 @@ public class Attend extends javax.swing.JFrame {
                     .addComponent(jTextFieldBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonAttend, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -117,28 +139,30 @@ public class Attend extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //GET CSV   
-private List<BookingInfo> getBookingsFromCSV() {
-    List<BookingInfo> bookingsList = new ArrayList<>();
-    String filePath = "bookings.csv";
-    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] data = line.split(",");
-            if (data.length == 6) {
-                int id = Integer.parseInt(data[0]);
-                String dayTime = data[1];
-                String coachName = data[2];
-                int level = Integer.parseInt(data[3]);
-                String status = data[4];
-                String bookingID = data[5];
-                bookingsList.add(new BookingInfo(dayTime, coachName, level, id, status, bookingID));
+    private List<BookingInfo> getBookingsFromCSV() {
+        List<BookingInfo> bookingsList = new ArrayList<>();
+        String filePath = "bookings.csv";
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 8) {
+                    int id = Integer.parseInt(data[0]);
+                    int Week = Integer.parseInt(data[1]);
+                    String dayTime = data[2];
+                    String Time = data[3];
+                    String coachName = data[4];
+                    int level = Integer.parseInt(data[5]);
+                    String status = data[6];
+                    String bookingID = data[7];
+                    bookingsList.add(new BookingInfo(Week, dayTime, Time, coachName, level, id, status, bookingID));
+                }
             }
+        } catch (IOException e) {
+            jTextAreaDisplay.setText("Error reading the bookings file: " + e.getMessage());
         }
-    } catch (IOException e) {
-        jTextAreaDisplay.setText("Error reading the bookings file: " + e.getMessage());
+        return bookingsList;
     }
-    return bookingsList;
-}
 
 
     private void jButtonAttendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendActionPerformed
@@ -156,6 +180,9 @@ private List<BookingInfo> getBookingsFromCSV() {
             if (String.valueOf(booking.studentID).equals(learnerID) && booking.BookingID.equals(bookingID) && booking.status.equals("Confirmed")) {
                 booking.status = "Attended";
                 isMatchFound = true;
+                if (booking.studentLevel < 5) {
+                    booking.studentLevel++;
+                }
                 System.out.println("Booking attended!");
                 break;
             }
@@ -168,13 +195,30 @@ private List<BookingInfo> getBookingsFromCSV() {
             jTextAreaDisplay.setText("No matching booking found, or already attended.");
         }
     }//GEN-LAST:event_jButtonAttendActionPerformed
+    private void incrementGrade(int studentID) {
+        // Assuming studentLevel is fetched properly elsewhere and updated here
+        if (studentLevel < 5) {
+            studentLevel++;
+            // Additional logic to update this level in your storage or display
+            jTextAreaDisplay.append("\nGrade increased to " + studentLevel);
+        }
+    }
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        Menu mp = new Menu(studentID, studentLevel); // Use the studentID field here
+        mp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
     private void saveBookingsToCSV(List<BookingInfo> bookings) {
-        String filePath = "bookings.csv";
+        String filePath = "bookings.csv"; // Path to your CSV file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (BookingInfo booking : bookings) {
-                bw.write(String.format("%d,%s,%s,%d,%s,%s\n",
+                // Format the string to write week information as well
+                bw.write(String.format("%d,%d,%s,%s,%s,%d,%s,%s\n",
                         booking.studentID,
+                        booking.Week, // Include the week in the CSV
                         booking.DayTime,
+                        booking.Time,
                         booking.coachName,
                         booking.studentLevel,
                         booking.status,
@@ -216,12 +260,13 @@ private List<BookingInfo> getBookingsFromCSV() {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Attend().setVisible(true);
+                new Attend(00, 00).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
     private javax.swing.JButton jButtonAttend;
     private javax.swing.JLabel jLabelID1;
     private javax.swing.JLabel jLabelTitlle;

@@ -62,6 +62,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jButtonAttend.setText("Attend");
+        jButtonAttend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAttendActionPerformed(evt);
+            }
+        });
 
         jButtonLearnerReport.setText("Learner Report");
 
@@ -174,6 +179,13 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jButtonViewBookingActionPerformed
+
+    private void jButtonAttendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendActionPerformed
+        // TODO add your handling code here:
+        Attend attend = new Attend(ID,level);
+        attend.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonAttendActionPerformed
 
     /**
      * @param args the command line arguments
