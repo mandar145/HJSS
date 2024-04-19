@@ -47,7 +47,7 @@ public class BookSlot extends javax.swing.JFrame {
         //Update time asper coach
         comboBoxCoachName.setModel(new DefaultComboBoxModel<>(getCoachNames()));
         comboBoxCoachName.setSelectedIndex(0); // Set to the first coach
-        
+
     }
 
     //method to get coach names 
@@ -279,15 +279,16 @@ public class BookSlot extends javax.swing.JFrame {
         String bookingID = BookingInfo.generateBookingID();
         // Proceed to check availability and potentially book the lesson
         BookingInfo newBooking = new BookingInfo(Week, selectedDay, selectedTime, selectedCoachName, selectedGradeLevel, studentID, status);
-        //create new list  
+
+        // Ensure the list for this studentID is initialized
         List<BookingInfo> bookingsList = studentBookings.getOrDefault(studentID, new ArrayList<>());
         bookingsList.add(newBooking);
+
         //add list and student id to hashmap
         studentBookings.put(studentID, bookingsList); // Save the new booking list
         //save to CSV file function
         saveBookingToFile(newBooking);
         textAreaDetails.setText("Booking Confirmed with ID: " + newBooking.BookingID + "\nWeek: " + Week + "\nDay: " + selectedDay + "\nTime: " + selectedTime + "\nCoach: " + selectedCoachName + "\nGrade: " + selectedGradeLevel + "\nLearner ID: " + studentID);
-
     }
 
     //method to check if the selected time is compatible with the coach
@@ -308,7 +309,13 @@ public class BookSlot extends javax.swing.JFrame {
 
     //Function for isDuplicateOrLimitReached
     private boolean isDuplicateOrLimitReached(int week, String day, String time) {
+        // Get the bookings for the current student or initialize if not present
         List<BookingInfo> bookingsList = studentBookings.get(studentID);
+        if (bookingsList == null) {
+            bookingsList = new ArrayList<>(); // Initialize if null
+            studentBookings.put(studentID, bookingsList); // Add to the map
+        }
+
         for (BookingInfo booking : bookingsList) {
             if (booking.Week == week && booking.DayTime.equals(day) && booking.Time.equals(time)) {
                 JOptionPane.showMessageDialog(this, "You have already booked this slot.", "Booking Error", JOptionPane.ERROR_MESSAGE);
@@ -316,6 +323,43 @@ public class BookSlot extends javax.swing.JFrame {
             }
         }
         return false;
+    }
+
+    private List<BookingInfo> getBookingsFromCSV() {
+        List<BookingInfo> bookingsList = new ArrayList<>();  // Initialize the list here
+        String filePath = "bookings.csv"; // Ensure this is the correct path to your CSV file
+        File file = new File(filePath);
+
+        // Check if the file exists to handle the case where no bookings have been saved yet
+        if (!file.exists()) {
+            return bookingsList;  // Return the empty list if no file exists
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 8) { // Ensure there are eight elements
+                    try {
+                        int id = Integer.parseInt(data[0]);
+                        int Week = Integer.parseInt(data[1]);
+                        String dayTime = data[2];
+                        String Time = data[3];
+                        String coachName = data[4];
+                        int level = Integer.parseInt(data[5]);
+                        String status = data[6];
+                        String bookingID = data[7];
+                        BookingInfo booking = new BookingInfo(Week, dayTime, Time, coachName, level, id, status, bookingID);
+                        bookingsList.add(booking);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error parsing booking data: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading the bookings file: " + e.getMessage());
+        }
+        return bookingsList;
     }
 
     // SAVE TO CSV
@@ -383,7 +427,7 @@ public class BookSlot extends javax.swing.JFrame {
         // TODO add your handling code here:
         updateTimesBasedOnDayAndCoach();
     }//GEN-LAST:event_comboBoxDayActionPerformed
-    
+
     private void comboBoxCoachNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCoachNameActionPerformed
         // TODO add your handling code here:
         updateTimesBasedOnDayAndCoach();
@@ -412,6 +456,7 @@ public class BookSlot extends javax.swing.JFrame {
 //    }
 //
 // 
+
     /**
      * @param args the command line arguments
      */

@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,6 +31,7 @@ public class ViewBookings extends javax.swing.JFrame {
         initComponents();
         this.studentID = ID;
         this.studentLevel = level;
+        UpdatePanel.setVisible(false);
     }
 
     /**
@@ -44,11 +46,17 @@ public class ViewBookings extends javax.swing.JFrame {
         jLabelTitlle = new javax.swing.JLabel();
         jLabelID = new javax.swing.JLabel();
         jTextFieldLearnerID = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaViewAllBookings = new javax.swing.JTextArea();
         jButtonSearch = new javax.swing.JButton();
         back = new javax.swing.JButton();
         jButtondelete = new javax.swing.JButton();
+        bookingComboBox = new javax.swing.JComboBox<>();
+        jLabelID1 = new javax.swing.JLabel();
+        jButtonCancel = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        UpdatePanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBoxTime = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,10 +65,6 @@ public class ViewBookings extends javax.swing.JFrame {
         jLabelTitlle.setText("View Bookings");
 
         jLabelID.setText("Enter Learner ID");
-
-        jTextAreaViewAllBookings.setColumns(20);
-        jTextAreaViewAllBookings.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaViewAllBookings);
 
         jButtonSearch.setText("Search");
         jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +87,63 @@ public class ViewBookings extends javax.swing.JFrame {
             }
         });
 
+        bookingComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabelID1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabelID1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelID1.setText("Bookings");
+
+        jButtonCancel.setText("Cancel Booking");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
+
+        jToggleButton1.setText("Change Booking");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Update / Modify Booking");
+
+        jComboBoxTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setText("Update");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout UpdatePanelLayout = new javax.swing.GroupLayout(UpdatePanel);
+        UpdatePanel.setLayout(UpdatePanelLayout);
+        UpdatePanelLayout.setHorizontalGroup(
+            UpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UpdatePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(UpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(672, Short.MAX_VALUE))
+        );
+        UpdatePanelLayout.setVerticalGroup(
+            UpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UpdatePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jComboBoxTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2-3pm", "3-4pm", "4-5pm", "5-6pm","6-7pm" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,47 +151,69 @@ public class ViewBookings extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabelID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(jLabelTitlle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 17, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap()
+                        .addComponent(jLabelID1)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelTitlle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(359, 359, 359))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookingComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonCancel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jToggleButton1))
+                                    .addComponent(UpdatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 21, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addComponent(jLabelTitlle)
-                .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelID1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(jButtondelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bookingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(UpdatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
+
+        bookingComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
 
         pack();
         setLocationRelativeTo(null);
@@ -142,19 +225,19 @@ public class ViewBookings extends javax.swing.JFrame {
         if (!studentIdInput.isEmpty()) {
             try {
                 int studentId = Integer.parseInt(studentIdInput);
-                List<BookingInfo> allBookings = getBookingsFromCSV();
                 List<BookingInfo> filteredBookings = new ArrayList<>();
-                for (BookingInfo booking : allBookings) {
+                for (BookingInfo booking : getBookingsFromCSV()) {
                     if (booking.studentID == studentId) {
                         filteredBookings.add(booking);
                     }
                 }
                 displayBookings(filteredBookings);
             } catch (NumberFormatException e) {
-                jTextAreaViewAllBookings.setText("Invalid ID format. Please enter a numeric ID.");
+                JOptionPane.showMessageDialog(this, "Invalid ID format. Please enter a numeric ID", "Error", JOptionPane.ERROR_MESSAGE);
+
             }
         } else {
-            jTextAreaViewAllBookings.setText("Please enter a Student ID.");
+            JOptionPane.showMessageDialog(this, "Please enter a Student ID.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -164,58 +247,6 @@ public class ViewBookings extends javax.swing.JFrame {
         mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
-
-    ////////////DELETE FUNCTIONS ////////////////////////////////////   
-    private void deleteAllBookingsForStudent(int studentId) {
-        List<BookingInfo> allBookings = getBookingsFromCSV();
-        List<BookingInfo> updatedBookings = new ArrayList<>();
-
-        // Filter out bookings for the given student ID
-        for (BookingInfo booking : allBookings) {
-            if (booking.studentID != studentId) {
-                updatedBookings.add(booking);
-            }
-        }
-
-        // Save the updated list back to CSV
-        saveBookingsToCSV(updatedBookings);
-    }
-
-    private void saveBookingsToCSV(List<BookingInfo> bookings) {
-        String filePath = "bookings.csv";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))) { // False to overwrite the file
-            for (BookingInfo booking : bookings) {
-                bw.write(booking.studentID + "," + booking.Week + ","
-                        + booking.DayTime + ","
-                        + booking.Time + ","
-                        + booking.coachName + ","
-                        + booking.studentLevel + ","
-                        + booking.status + ","
-                        + booking.BookingID + "\n");
-            }
-        } catch (IOException e) {
-            jTextAreaViewAllBookings.setText("Error writing to bookings file: " + e.getMessage());
-        }
-    }
-
-    private void jButtondeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtondeleteActionPerformed
-        // TODO add your handling code here:
-        String studentIdInput = jTextFieldLearnerID.getText().trim();
-        if (!studentIdInput.isEmpty()) {
-            try {
-                int studentId = Integer.parseInt(studentIdInput);
-                deleteAllBookingsForStudent(studentId);
-                List<BookingInfo> updatedList = getBookingsFromCSV(); // Fetch the updated list
-                displayBookings(updatedList); // Display the updated list
-                jTextAreaViewAllBookings.setText("All bookings deleted for Student ID: " + studentId);
-            } catch (NumberFormatException e) {
-                jTextAreaViewAllBookings.setText("Invalid ID format. Please enter a numeric ID.");
-            }
-        } else {
-            jTextAreaViewAllBookings.setText("Please enter a Student ID.");
-        }
-    }//GEN-LAST:event_jButtondeleteActionPerformed
-
     ////////////////retreive data from CSV  ////////////////////////////////
     private List<BookingInfo> getBookingsFromCSV() {
         List<BookingInfo> bookingsList = new ArrayList<>();
@@ -234,7 +265,8 @@ public class ViewBookings extends javax.swing.JFrame {
                         int level = Integer.parseInt(data[5]);
                         String status = data[6];
                         String bookingID = data[7];
-                        bookingsList.add(new BookingInfo(Week,dayTime,Time,coachName, level, id, status, bookingID));
+                        BookingInfo booking = new BookingInfo(Week, dayTime, Time, coachName, level, id, status, bookingID);
+                        bookingsList.add(booking);
                     } catch (NumberFormatException e) {
                         // Handle the case where parsing fails
                         System.out.println("Error parsing booking data: " + e.getMessage());
@@ -242,23 +274,92 @@ public class ViewBookings extends javax.swing.JFrame {
                 }
             }
         } catch (IOException e) {
-            jTextAreaViewAllBookings.setText("Error reading the bookings file: " + e.getMessage());
+            System.out.println("Error reading the bookings file: " + e.getMessage());
         }
         return bookingsList;
     }
-    //////////////////////Display all the data ////////////////
 
+    //////////////////////Display all the data ////////////////
     private void displayBookings(List<BookingInfo> bookings) {
+        bookingComboBox.removeAllItems();
         if (bookings.isEmpty()) {
-            jTextAreaViewAllBookings.setText("No bookings found for Student ID: " + jTextFieldLearnerID.getText());
+            JOptionPane.showMessageDialog(this, "No bookings found.");
         } else {
-            StringBuilder sb = new StringBuilder();
             for (BookingInfo booking : bookings) {
-                sb.append(booking.toString()).append("\n");
+                bookingComboBox.addItem(booking.toString());
             }
-            jTextAreaViewAllBookings.setText(sb.toString());
         }
     }
+
+    ////////////DELETE FUNCTIONS ////////////////////////////////////   
+    private void saveBookingsToCSV(List<BookingInfo> bookings) {
+        String filePath = "bookings.csv";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))) {
+            for (BookingInfo booking : bookings) {
+                bw.write(booking.studentID + "," + booking.Week + "," + booking.DayTime + "," + booking.Time + "," + booking.coachName + "," + booking.studentLevel + "," + booking.status + "," + booking.BookingID + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to bookings file: " + e.getMessage());
+        }
+    }
+
+
+    private void jButtondeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtondeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedIndex = bookingComboBox.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            List<BookingInfo> allBookings = getBookingsFromCSV();
+            allBookings.remove(selectedIndex);
+            saveBookingsToCSV(allBookings);
+            bookingComboBox.removeItemAt(selectedIndex);
+            JOptionPane.showMessageDialog(this, "Booking Deleted successfully !!.");
+        }
+    }//GEN-LAST:event_jButtondeleteActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        // TODO add your handling code here:
+        int selectedIndex = bookingComboBox.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            List<BookingInfo> allBookings = getBookingsFromCSV();
+            BookingInfo selectedBooking = allBookings.get(selectedIndex);
+            if ("Confirmed".equals(selectedBooking.status)) {
+                selectedBooking.status = "Cancelled";
+                saveBookingsToCSV(allBookings);
+                JOptionPane.showMessageDialog(this, "Booking cancelled successfully.");
+                displayBookings(allBookings);  // Refresh the ComboBox display
+            } else {
+                JOptionPane.showMessageDialog(this, "Only confirmed bookings can be cancelled.", "Cancellation Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No booking selected.", "Cancellation Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        boolean isVisible = UpdatePanel.isVisible();
+        // Toggle the visibility    
+        UpdatePanel.setVisible(!isVisible);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+                int selectedIndex = bookingComboBox.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            List<BookingInfo> allBookings = getBookingsFromCSV();
+            BookingInfo selectedBooking = allBookings.get(selectedIndex);
+            String newTime = (String) jComboBoxTime.getSelectedItem();
+
+            // Update the booking with new time
+            selectedBooking.Time = newTime;
+
+            saveBookingsToCSV(allBookings);
+            JOptionPane.showMessageDialog(this, "Booking time updated successfully.");
+            displayBookings(allBookings); // Refresh the ComboBox display
+        } else {
+            JOptionPane.showMessageDialog(this, "No booking selected to change.", "Change Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,13 +397,19 @@ public class ViewBookings extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel UpdatePanel;
     private javax.swing.JButton back;
+    private javax.swing.JComboBox<String> bookingComboBox;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtondelete;
+    private javax.swing.JComboBox<String> jComboBoxTime;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelID;
+    private javax.swing.JLabel jLabelID1;
     private javax.swing.JLabel jLabelTitlle;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaViewAllBookings;
     private javax.swing.JTextField jTextFieldLearnerID;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
