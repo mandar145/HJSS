@@ -35,10 +35,10 @@ public class BookSlot extends javax.swing.JFrame {
     /**
      * Creates new form BookSlot CONSTRUCTOR OF BOOKINGSLOT PAGE
      */
-    public BookSlot(int ID,int level) {
+    public BookSlot(int ID, int level) {
         initComponents();
-    this.studentID = ID; // Ensure this line sets the member variable correctly
-    jLabelStudentID.setText("Student ID: " + String.valueOf(ID));
+        this.studentID = ID; // Ensure this line sets the member variable correctly
+        jLabelStudentID.setText("Student ID: " + String.valueOf(ID));
         this.studentLevel = level;
         jLabelCurrentLvl.setText("Learner Level: " + String.valueOf(level));
         // Initialize the studentBookings HashMap
@@ -206,12 +206,18 @@ public class BookSlot extends javax.swing.JFrame {
         String selectedDay = (String) comboBoxDay.getSelectedItem();
         int selectedGradeLevel = Integer.parseInt(comboBoxGradeLevel.getSelectedItem().toString());
         String selectedCoachName = (String) comboBoxCoachName.getSelectedItem();
-        String status = "Confirmed";
-        String bookingID = BookingInfo.generateBookingID();
+        String status = "Pending";
+
+        // Check if the selected grade level is appropriate
+        if (selectedGradeLevel > studentLevel + 1 || selectedGradeLevel < studentLevel) {
+            JOptionPane.showMessageDialog(this, "You can only book lessons for your current level or one level higher.", "Grade Level Error", JOptionPane.ERROR_MESSAGE);
+            return; // Stop further execution if the grade level is not correct
+        }
         // Check for duplicate and limit
         if (isDuplicateOrLimitReached(selectedDay, selectedCoachName)) {
             return; // Exit if a duplicate booking exists or limit is reached
         }
+        String bookingID = BookingInfo.generateBookingID();
         // Proceed to check availability and potentially book the lesson
         BookingInfo newBooking = new BookingInfo(selectedDay, selectedCoachName, selectedGradeLevel, studentID, status);
         //create new list  
@@ -221,7 +227,7 @@ public class BookSlot extends javax.swing.JFrame {
         studentBookings.put(studentID, bookingsList); // Save the new booking list
         //save to CSV file function
         saveBookingToFile(newBooking);
-         textAreaDetails.setText("Booking Confirmed with ID: " + newBooking.BookingID + "\nDay & Time: " + selectedDay + "\nCoach: " + selectedCoachName + "\nGrade: " + selectedGradeLevel + "\nLearner ID: " + studentID);
+        textAreaDetails.setText("Booking Confirmed with ID: " + newBooking.BookingID + "\nDay & Time: " + selectedDay + "\nCoach: " + selectedCoachName + "\nGrade: " + selectedGradeLevel + "\nLearner ID: " + studentID);
 
     }
 
@@ -254,11 +260,11 @@ public class BookSlot extends javax.swing.JFrame {
                  BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
             // Write the booking to the CSV file including the status
             out.println(booking.studentID + ","
-                + booking.DayTime + ","
-                + booking.coachName + ","
-                + booking.studentLevel + ","
-                + booking.status + ","
-                + booking.BookingID); 
+                    + booking.DayTime + ","
+                    + booking.coachName + ","
+                    + booking.studentLevel + ","
+                    + booking.status + ","
+                    + booking.BookingID);
         } catch (IOException e) {
             e.printStackTrace(); // Properly handle this exception
         }
@@ -275,7 +281,7 @@ public class BookSlot extends javax.swing.JFrame {
         mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BackActionPerformed
- 
+
     /**
      * @param args the command line arguments
      */
