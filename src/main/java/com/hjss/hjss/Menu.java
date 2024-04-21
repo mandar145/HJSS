@@ -40,7 +40,6 @@ public class Menu extends javax.swing.JFrame {
         jButtonAttend = new javax.swing.JButton();
         jButtonLearnerReport = new javax.swing.JButton();
         jButtonCoachReport = new javax.swing.JButton();
-        jButtonReview = new javax.swing.JButton();
         jButtonBookingSlot = new javax.swing.JButton();
         jLabelGrade = new javax.swing.JLabel();
         jButtonRegistration = new javax.swing.JButton();
@@ -69,6 +68,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jButtonLearnerReport.setText("Learner Report");
+        jButtonLearnerReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLearnerReportActionPerformed(evt);
+            }
+        });
 
         jButtonCoachReport.setText("Coach Report");
         jButtonCoachReport.addActionListener(new java.awt.event.ActionListener() {
@@ -76,8 +80,6 @@ public class Menu extends javax.swing.JFrame {
                 jButtonCoachReportActionPerformed(evt);
             }
         });
-
-        jButtonReview.setText("Review");
 
         jButtonBookingSlot.setText("Booking ");
         jButtonBookingSlot.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +113,6 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(172, 172, 172)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCoachReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonLearnerReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonBookingSlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -140,9 +141,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jButtonLearnerReport, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonCoachReport, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonReview, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,10 +193,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButtonCoachReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoachReportActionPerformed
         // TODO add your handling code here:
-        CoachReport cp = new CoachReport();
+        CoachReport cp = new CoachReport(ID,level);
         cp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonCoachReportActionPerformed
+
+    private void jButtonLearnerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLearnerReportActionPerformed
+        // TODO add your handling code here:
+        LearnerReport lp = new LearnerReport(ID,level);
+        lp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonLearnerReportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,7 +246,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCoachReport;
     private javax.swing.JButton jButtonLearnerReport;
     private javax.swing.JButton jButtonRegistration;
-    private javax.swing.JButton jButtonReview;
     private javax.swing.JButton jButtonViewBooking;
     private javax.swing.JLabel jLabelGrade;
     private javax.swing.JLabel jLabelStudentID;

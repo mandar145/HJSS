@@ -1,4 +1,2 @@
-
-9487,Pranita,Female,5,3,888,pranita@gmail.com,911
-8021,Priyanshu,Male,5,2,9224342152,priyanshu@gmail.com,8889478782
-6204,Rohan,Male,6,2,9224342152,rohan@gmail.com,9178785242
+StudentID,Name,Gender,Age,Level,Number,Email,EmergencyContact
+4528,Mandar,Male,10,2,9224342152,smandar@gmail.com,9224589789

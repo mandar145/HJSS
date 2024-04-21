@@ -375,7 +375,6 @@ public class BookSlot extends javax.swing.JFrame {
                 // Write headers
                 out.println("StudentID,Week,DayTime,Time,CoachName,StudentLevel,Status,BookingID");
             }
-
             // Write the booking to the CSV file
             out.println(booking.studentID + ","
                     + booking.Week + ","

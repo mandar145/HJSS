@@ -55,7 +55,7 @@ public class ViewBookings extends javax.swing.JFrame {
         UpdatePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxTime = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        updatechangebooking = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -104,10 +104,10 @@ public class ViewBookings extends javax.swing.JFrame {
 
         jComboBoxTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        updatechangebooking.setText("Update");
+        updatechangebooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                updatechangebookingActionPerformed(evt);
             }
         });
 
@@ -118,10 +118,10 @@ public class ViewBookings extends javax.swing.JFrame {
             .addGroup(UpdatePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(UpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updatechangebooking, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(672, Short.MAX_VALUE))
+                .addContainerGap(621, Short.MAX_VALUE))
         );
         UpdatePanelLayout.setVerticalGroup(
             UpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,8 +131,8 @@ public class ViewBookings extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(updatechangebooking)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jComboBoxTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2-3pm", "3-4pm", "4-5pm", "5-6pm","6-7pm" }));
@@ -168,23 +168,16 @@ public class ViewBookings extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bookingComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButtonCancel)
-                                        .addGap(23, 23, 23)
-                                        .addComponent(jToggleButton1))
-                                    .addComponent(UpdatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 21, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jToggleButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCancel))
+                    .addComponent(UpdatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +197,9 @@ public class ViewBookings extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(UpdatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,15 +322,36 @@ public class ViewBookings extends javax.swing.JFrame {
         UpdatePanel.setVisible(!isVisible);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void updatechangebookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatechangebookingActionPerformed
         // Get the index of the selected booking
-        // Get the index of the selected booking
+        int selectedIndex = bookingComboBox.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            List<BookingInfo> allBookings = getBookingsFromCSV();
+            BookingInfo selectedBooking = allBookings.get(selectedIndex);
+            String newTime = (String) jComboBoxTime.getSelectedItem();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+            // Update the booking time
+            selectedBooking.Time = newTime;
+            selectedBooking.status = "booked";
+            // Save the updated bookings back to the CSV
+            saveBookingsToCSV(allBookings);
+            JOptionPane.showMessageDialog(this, "Booking updated successfully.");
+            displayBookings(allBookings); // Refresh the ComboBox display
+            cleardisplay();
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "No booking selected to update.", "Update Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_updatechangebookingActionPerformed
 
+    public void cleardisplay()
+    {
+        
+        UpdatePanel.setVisible(false);
+    }
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
-                int selectedIndex = bookingComboBox.getSelectedIndex();
+        int selectedIndex = bookingComboBox.getSelectedIndex();
         if (selectedIndex >= 0) {
             List<BookingInfo> allBookings = getBookingsFromCSV();
             BookingInfo selectedBooking = allBookings.get(selectedIndex);
@@ -357,7 +371,7 @@ public class ViewBookings extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No booking selected to change.", "Change Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     /**
@@ -399,7 +413,6 @@ public class ViewBookings extends javax.swing.JFrame {
     private javax.swing.JPanel UpdatePanel;
     private javax.swing.JButton back;
     private javax.swing.JComboBox<String> bookingComboBox;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtondelete;
@@ -410,5 +423,6 @@ public class ViewBookings extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitlle;
     private javax.swing.JTextField jTextFieldLearnerID;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JButton updatechangebooking;
     // End of variables declaration//GEN-END:variables
 }

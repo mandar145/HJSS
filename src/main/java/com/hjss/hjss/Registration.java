@@ -7,6 +7,7 @@ package com.hjss.hjss;
 import HJSSData.Learner;
 import java.awt.Color;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -355,14 +356,23 @@ public class Registration extends javax.swing.JFrame {
 
     //Save Data in CSV File
     private void saveRegistrationDataToFile(HashMap<String, String> record) {
-        // Define the file path and name
         String filePath = "registration_data.csv";
-        try (FileWriter fw = new FileWriter(filePath, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
-            // Write data to file in CSV format
+        File file = new File(filePath);
+
+        try (FileWriter fw = new FileWriter(filePath, true); // Open the file in append mode
+                 BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
+
+            // Check if the file is new or empty and needs headers
+            if (!file.exists() || file.length() == 0) {
+                // Write the header
+                out.println("StudentID,Name,Gender,Age,Level,Number,Email,EmergencyContact");
+            }
+
+            // Write the data
             out.println(record.get("StudentID") + "," + record.get("Name") + "," + record.get("Gender") + ","
                     + record.get("Age") + "," + record.get("Level") + "," + record.get("Number") + ","
                     + record.get("Email") + "," + record.get("EmergencyContact"));
-            System.out.println("Registration data saved to file.");
+
         } catch (IOException e) {
             System.err.println("An error occurred while saving registration data to file.");
             e.printStackTrace();

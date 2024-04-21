@@ -4,17 +4,27 @@
  */
 package com.hjss.hjss;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Madar
  */
 public class LearnerReport extends javax.swing.JFrame {
 
+    private int studentLevel;
+    private int studentID;
+
     /**
      * Creates new form LearnerReport
      */
-    public LearnerReport() {
+    public LearnerReport(int ID, int level) {
         initComponents();
+        this.studentID = ID;
+        this.studentLevel = level;
     }
 
     /**
@@ -27,6 +37,16 @@ public class LearnerReport extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldLearnerID = new javax.swing.JTextField();
+        jButtonGenerateReport = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaDisplayReport = new javax.swing.JTextArea();
+        back = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        allrecord = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -34,25 +54,176 @@ public class LearnerReport extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Learner Report");
 
+        jLabel2.setText("Learner ID");
+
+        jButtonGenerateReport.setText("Generate Report");
+        jButtonGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerateReportActionPerformed(evt);
+            }
+        });
+
+        jTextAreaDisplayReport.setColumns(20);
+        jTextAreaDisplayReport.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaDisplayReport);
+
+        back.setText("Go Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Attended Records");
+
+        jLabel4.setText("All Records");
+
+        allrecord.setColumns(20);
+        allrecord.setRows(5);
+        jScrollPane2.setViewportView(allrecord);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jButtonGenerateReport)))
+                .addGap(262, 262, 262))
             .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                    .addComponent(back, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    //For All other status data
+    private void loadAllBookingsData() {
+        allrecord.setText("");
+        // Get the learner ID from the text field
+        String learnerID = jTextFieldLearnerID.getText().trim();
+        if (learnerID.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Learner ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Read the feedback data and build the report
+        StringBuilder AllreportBuilder = new StringBuilder();
+        String line;
+        try (BufferedReader reader = new BufferedReader(new FileReader("bookings.csv"))) {
+            // Skip the header row
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                // Check if the learner ID matches
+                if (data.length > 0 && data[0].equals(learnerID)) { // Assuming learner ID is in the 5th column (index 4)
+                    // Append each piece of feedback data to the report builder
+                    AllreportBuilder.append("Learner ID: ").append(data[0]) // BookingID
+                            .append("\nWeek: ").append(data[1]) // Week
+                            .append("\nDay: ").append(data[2]) // Day
+                            .append("\nTime: ").append(data[3]) // Time
+                            .append("\nCoach Name: ").append(data[5]) // CoachName
+                            .append("\nGrade: ").append(data[6]) // CoachName
+                            .append("\nStatus: ").append(data[7]) // Status
+                            .append("\nBooking ID: ").append(data[7]) // LessonRating
+                            .append("\n\n"); // Add some space between entries
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Failed to load Booking data.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        // Set the generated report in the text area
+        allrecord.setText(AllreportBuilder.toString());
+    }
+
+    private void attendBookingData() {
+        // Get the learner ID from the text field
+        String learnerID = jTextFieldLearnerID.getText().trim();
+        //for attended - feedback csv
+        if (learnerID.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Learner ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Read the feedback data and build the report
+        StringBuilder reportBuilder = new StringBuilder();
+        String line;
+        try (BufferedReader reader = new BufferedReader(new FileReader("feedback.csv"))) {
+            // Skip the header row
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                // Check if the learner ID matches
+                if (data.length > 4 && data[4].equals(learnerID)) { // Assuming learner ID is in the 5th column (index 4)
+                    // Append each piece of feedback data to the report builder
+                    reportBuilder.append("Booking ID: ").append(data[0]) // BookingID
+                            .append("\nWeek: ").append(data[1]) // Week
+                            .append("\nDay: ").append(data[2]) // Day
+                            .append("\nTime: ").append(data[3]) // Time
+                            .append("\nCoach Name: ").append(data[5]) // CoachName
+                            .append("\nStatus: ").append(data[6]) // Status
+                            .append("\nLesson Rating: ").append(data[7]) // LessonRating
+                            .append("\nCoach Rating: ").append(data[8]) // CoachRating
+                            .append("\nReview: ").append(data[9]) // Review
+                            .append("\n\n"); // Add some space between entries
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Failed to load feedback data.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        // Set the generated report in the text area
+        jTextAreaDisplayReport.setText(reportBuilder.toString());
+    }
+
+    private void jButtonGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerateReportActionPerformed
+        allrecord.setText("");
+        loadAllBookingsData();
+        jTextAreaDisplayReport.setText("");
+        attendBookingData();
+    }//GEN-LAST:event_jButtonGenerateReportActionPerformed
+
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        Menu mp = new Menu(studentID, studentLevel);
+        mp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -84,12 +255,22 @@ public class LearnerReport extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LearnerReport().setVisible(true);
+                new LearnerReport(0, 0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea allrecord;
+    private javax.swing.JButton back;
+    private javax.swing.JButton jButtonGenerateReport;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextAreaDisplayReport;
+    private javax.swing.JTextField jTextFieldLearnerID;
     // End of variables declaration//GEN-END:variables
 }
