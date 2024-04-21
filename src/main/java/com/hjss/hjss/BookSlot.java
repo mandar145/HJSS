@@ -275,7 +275,7 @@ public class BookSlot extends javax.swing.JFrame {
             return;
         }
 
-        status = "Confirmed";
+        status = "booked";
         String bookingID = BookingInfo.generateBookingID();
         // Proceed to check availability and potentially book the lesson
         BookingInfo newBooking = new BookingInfo(Week, selectedDay, selectedTime, selectedCoachName, selectedGradeLevel, studentID, status);
@@ -365,10 +365,18 @@ public class BookSlot extends javax.swing.JFrame {
     // SAVE TO CSV
     private void saveBookingToFile(BookingInfo booking) {
         String filePath = "bookings.csv"; // The path to the CSV file
+        File file = new File(filePath);
 
         try (FileWriter fw = new FileWriter(filePath, true); // Open the file in append mode
                  BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
-            // Write the booking to the CSV file including the status
+
+            // Check if the file is new or empty and needs headers
+            if (!file.exists() || file.length() == 0) {
+                // Write headers
+                out.println("StudentID,Week,DayTime,Time,CoachName,StudentLevel,Status,BookingID");
+            }
+
+            // Write the booking to the CSV file
             out.println(booking.studentID + ","
                     + booking.Week + ","
                     + booking.DayTime + ","
@@ -378,7 +386,9 @@ public class BookSlot extends javax.swing.JFrame {
                     + booking.status + ","
                     + booking.BookingID);
         } catch (IOException e) {
-            e.printStackTrace(); // Properly handle this exception
+            System.out.println("Error writing to bookings file: " + e.getMessage());
+            // Optionally display an error message dialog
+            JOptionPane.showMessageDialog(null, "Error writing to bookings file: " + e.getMessage(), "File Writing Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

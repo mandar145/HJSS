@@ -5,13 +5,19 @@
 package com.hjss.hjss;
 
 import HJSSData.BookingInfo;
+import HJSSData.Feedback;
+import HJSSData.Learner;
+import HJSSData.Lesson;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,6 +36,7 @@ public class Attend extends javax.swing.JFrame {
 
         this.studentID = ID;
         this.studentLevel = level;
+        feedbackpannel.setVisible(false);
     }
 
     /**
@@ -50,6 +57,16 @@ public class Attend extends javax.swing.JFrame {
         jTextAreaDisplay = new javax.swing.JTextArea();
         jButtonAttend = new javax.swing.JButton();
         back = new javax.swing.JButton();
+        feedbackpannel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaReview = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBoxLessonRating = new javax.swing.JComboBox<>();
+        jLabelCoachRating = new javax.swing.JLabel();
+        jComboBoxCoachRating = new javax.swing.JComboBox<>();
+        Submit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +96,81 @@ public class Attend extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("FEEDBACK");
+
+        jLabel2.setText("Review");
+
+        jTextAreaReview.setColumns(20);
+        jTextAreaReview.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaReview);
+
+        jLabel3.setText("Lesson Rating");
+
+        jComboBoxLessonRating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabelCoachRating.setText("Coach Rating");
+
+        jComboBoxCoachRating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        Submit.setText("Submit");
+        Submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubmitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout feedbackpannelLayout = new javax.swing.GroupLayout(feedbackpannel);
+        feedbackpannel.setLayout(feedbackpannelLayout);
+        feedbackpannelLayout.setHorizontalGroup(
+            feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(feedbackpannelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(feedbackpannelLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                            .addComponent(jLabelCoachRating, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxLessonRating, 0, 110, Short.MAX_VALUE)
+                            .addComponent(jComboBoxCoachRating, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        feedbackpannelLayout.setVerticalGroup(
+            feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(feedbackpannelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(feedbackpannelLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel2))
+                    .addGroup(feedbackpannelLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(feedbackpannelLayout.createSequentialGroup()
+                                .addGroup(feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxLessonRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(feedbackpannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabelCoachRating, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxCoachRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jComboBoxLessonRating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jComboBoxCoachRating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,49 +181,50 @@ public class Attend extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabelbookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelTitlle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonAttend, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 99, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelbookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelID1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextFieldBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButtonAttend, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(43, 43, 43)
+                                        .addComponent(jLabelTitlle, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(feedbackpannel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(22, 22, 22)
-                    .addComponent(jLabelID1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(314, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addComponent(jLabelTitlle)
-                .addGap(40, 40, 40)
-                .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelID1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelbookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonAttend, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                    .addComponent(jButtonAttend, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addComponent(feedbackpannel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(97, 97, 97)
-                    .addComponent(jLabelID1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(309, Short.MAX_VALUE)))
         );
 
         pack();
@@ -177,20 +270,21 @@ public class Attend extends javax.swing.JFrame {
         for (BookingInfo booking : bookings) {
             System.out.println("Found Booking - Learner ID: " + booking.studentID + ", Booking ID: " + booking.BookingID + ", Status: " + booking.status);
             // Ensure to check against the correct status
-            if (String.valueOf(booking.studentID).equals(learnerID) && booking.BookingID.equals(bookingID) && booking.status.equals("Confirmed")) {
+            if (String.valueOf(booking.studentID).equals(learnerID) && booking.BookingID.equals(bookingID) && booking.status.equals("booked")) {
                 booking.status = "Attended";
                 isMatchFound = true;
                 if (booking.studentLevel < 5) {
                     booking.studentLevel++;
                 }
                 System.out.println("Booking attended!");
+                feedbackpannel.setVisible(true);
                 break;
             }
         }
 
         if (isMatchFound) {
             saveBookingsToCSV(bookings);
-            jTextAreaDisplay.setText("Attendance confirmed for Booking ID: " + bookingID);
+            jTextAreaDisplay.setText("Attendance booked for Booking ID: " + bookingID);
         } else {
             jTextAreaDisplay.setText("No matching booking found, or already attended.");
         }
@@ -209,6 +303,70 @@ public class Attend extends javax.swing.JFrame {
         mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
+
+    //Save Feedback to Feedback CSV
+    private void saveFeedbackToCSV(String review, int lessonRating, int coachRating, BookingInfo booking) {
+        String filePath = "Feedback.csv";
+        File file = new File(filePath);
+        boolean isNewFile = !file.exists() || file.length() == 0;
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
+            if (isNewFile) {
+                // Write headers
+                bw.write("BookingID,Week,Day,Time,LearnerID,Grade,CoachName,Status,LessonRating,CoachRating,Review\n");
+            }
+            // Write data
+            bw.write(String.format("%s,%d,%s,%s,%d,%d,%s,%s,%d,%d,%s\n",
+                    booking.BookingID,
+                    booking.Week,
+                    booking.DayTime,
+                    booking.Time,
+                    booking.studentID,
+                    booking.studentLevel,
+                    booking.coachName,
+                    booking.status,
+                    lessonRating,
+                    coachRating,
+                    review.replace(",", ";"))); // Replace commas in review to preserve CSV format
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving feedback: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
+        // Fetch feedback details from form inputs
+        String review = jTextAreaReview.getText();
+        int lessonRating = Integer.parseInt((String) jComboBoxLessonRating.getSelectedItem());
+        int coachRating = Integer.parseInt((String) jComboBoxCoachRating.getSelectedItem());
+        String bookingId = jTextFieldBookingID.getText();
+        int learnerId = Integer.parseInt(jTextFieldLearnerID.getText());
+
+        // Fetch the corresponding booking information
+        BookingInfo booking = getBookingById(bookingId);
+        if (booking != null) {
+            saveFeedbackToCSV(review, lessonRating, coachRating, booking);
+            JOptionPane.showMessageDialog(this, "Thank you for your feedback!", "Feedback Submitted", JOptionPane.INFORMATION_MESSAGE);
+            resetFeedbackForm();
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Booking ID", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_SubmitActionPerformed
+    private BookingInfo getBookingById(String bookingId) {
+        List<BookingInfo> bookings = getBookingsFromCSV();
+        for (BookingInfo booking : bookings) {
+            if (booking.BookingID.equals(bookingId)) {
+                return booking;
+            }
+        }
+        return null;
+    }
+
+    private void resetFeedbackForm() {
+        jTextAreaReview.setText("");
+        jComboBoxLessonRating.setSelectedIndex(0);
+        jComboBoxCoachRating.setSelectedIndex(0);
+        feedbackpannel.setVisible(false);
+    }
+
     private void saveBookingsToCSV(List<BookingInfo> bookings) {
         String filePath = "bookings.csv"; // Path to your CSV file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
@@ -266,13 +424,23 @@ public class Attend extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Submit;
     private javax.swing.JButton back;
+    private javax.swing.JPanel feedbackpannel;
     private javax.swing.JButton jButtonAttend;
+    private javax.swing.JComboBox<String> jComboBoxCoachRating;
+    private javax.swing.JComboBox<String> jComboBoxLessonRating;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelCoachRating;
     private javax.swing.JLabel jLabelID1;
     private javax.swing.JLabel jLabelTitlle;
     private javax.swing.JLabel jLabelbookingID;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaDisplay;
+    private javax.swing.JTextArea jTextAreaReview;
     private javax.swing.JTextField jTextFieldBookingID;
     private javax.swing.JTextField jTextFieldLearnerID;
     // End of variables declaration//GEN-END:variables

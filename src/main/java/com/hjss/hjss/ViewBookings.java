@@ -51,12 +51,12 @@ public class ViewBookings extends javax.swing.JFrame {
         jButtondelete = new javax.swing.JButton();
         bookingComboBox = new javax.swing.JComboBox<>();
         jLabelID1 = new javax.swing.JLabel();
-        jButtonCancel = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         UpdatePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxTime = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,13 +92,6 @@ public class ViewBookings extends javax.swing.JFrame {
         jLabelID1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelID1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelID1.setText("Bookings");
-
-        jButtonCancel.setText("Cancel Booking");
-        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelActionPerformed(evt);
-            }
-        });
 
         jToggleButton1.setText("Change Booking");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +137,13 @@ public class ViewBookings extends javax.swing.JFrame {
 
         jComboBoxTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2-3pm", "3-4pm", "4-5pm", "5-6pm","6-7pm" }));
 
+        jButtonCancel.setText("Cancel Booking");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,9 +178,9 @@ public class ViewBookings extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jButtonCancel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(23, 23, 23)
                                         .addComponent(jToggleButton1))
                                     .addComponent(UpdatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 21, Short.MAX_VALUE)))
@@ -204,11 +204,11 @@ public class ViewBookings extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtondelete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(UpdatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
@@ -284,10 +284,16 @@ public class ViewBookings extends javax.swing.JFrame {
         bookingComboBox.removeAllItems();
         if (bookings.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No bookings found.");
+            jButtondelete.setEnabled(false);
+            jButtonCancel.setEnabled(false);
+            jToggleButton1.setEnabled(false);
         } else {
             for (BookingInfo booking : bookings) {
                 bookingComboBox.addItem(booking.toString());
             }
+            jButtondelete.setEnabled(true);
+            jButtonCancel.setEnabled(true);
+            jToggleButton1.setEnabled(true);
         }
     }
 
@@ -316,25 +322,6 @@ public class ViewBookings extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtondeleteActionPerformed
 
-    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        // TODO add your handling code here:
-        int selectedIndex = bookingComboBox.getSelectedIndex();
-        if (selectedIndex >= 0) {
-            List<BookingInfo> allBookings = getBookingsFromCSV();
-            BookingInfo selectedBooking = allBookings.get(selectedIndex);
-            if ("Confirmed".equals(selectedBooking.status)) {
-                selectedBooking.status = "Cancelled";
-                saveBookingsToCSV(allBookings);
-                JOptionPane.showMessageDialog(this, "Booking cancelled successfully.");
-                displayBookings(allBookings);  // Refresh the ComboBox display
-            } else {
-                JOptionPane.showMessageDialog(this, "Only confirmed bookings can be cancelled.", "Cancellation Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "No booking selected.", "Cancellation Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButtonCancelActionPerformed
-
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
         boolean isVisible = UpdatePanel.isVisible();
@@ -343,23 +330,35 @@ public class ViewBookings extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Get the index of the selected booking
+        // Get the index of the selected booking
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
                 int selectedIndex = bookingComboBox.getSelectedIndex();
         if (selectedIndex >= 0) {
             List<BookingInfo> allBookings = getBookingsFromCSV();
             BookingInfo selectedBooking = allBookings.get(selectedIndex);
             String newTime = (String) jComboBoxTime.getSelectedItem();
-
-            // Update the booking with new time
-            selectedBooking.Time = newTime;
-
-            saveBookingsToCSV(allBookings);
-            JOptionPane.showMessageDialog(this, "Booking time updated successfully.");
-            displayBookings(allBookings); // Refresh the ComboBox display
+            // Check if the booking is in the 'Cancelled' state
+            if ("booked".equals(selectedBooking.status)) {
+                // Update the booking with new  status to 'cancelled'
+                selectedBooking.status = "cancelled";
+                // Save the updated bookings to CSV
+                saveBookingsToCSV(allBookings);
+                JOptionPane.showMessageDialog(this, "Booking cancelled successfully.");
+                displayBookings(allBookings); // Refresh the ComboBox display
+            } else {
+                // Notify the user that only bookings in 'Cancelled' state can be cancelled
+                JOptionPane.showMessageDialog(this, "Only bookings in 'Booked' status can be cancelled.", "Cancellation Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "No booking selected to change.", "Change Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     /**
      * @param args the command line arguments

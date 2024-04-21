@@ -23,13 +23,15 @@ public class Coach {
     private List<String> qualifications;
     private List<Lesson> lessons; // Assuming a Lesson class exists
     private double averageRating;
-    
+    private int ratingCount;
+
     public Coach(String coachID, String Cname) {
         this.coachID = coachID;
         this.Cname = Cname;
         this.qualifications = new ArrayList<>();
         this.lessons = new ArrayList<>();
         this.averageRating = 0.0;
+        this.ratingCount = 0;
     }
 
     // Getter and Setter for coachID
@@ -42,7 +44,6 @@ public class Coach {
     }
 
     // Existing getName and setName methods
-
     // Methods for qualifications
     public void addQualification(String qualification) {
         this.qualifications.add(qualification);
@@ -67,9 +68,10 @@ public class Coach {
     }
 
     public void updateRating(double newRating) {
-        // This is a simplified way to update the average rating
-        // You might need a more sophisticated method depending on how ratings are collected and averaged
-        this.averageRating = newRating;
+        double totalRating = this.averageRating * this.ratingCount;
+        this.ratingCount++; // Increase the count of ratings received
+        totalRating += newRating;
+        this.averageRating = totalRating / this.ratingCount;
     }
 
     // Existing methods for Cname

@@ -54,7 +54,7 @@ public class Menu extends javax.swing.JFrame {
         jLabelStudentID.setFont(new java.awt.Font("Bell MT", 1, 12)); // NOI18N
         jLabelStudentID.setText("jLabel1");
 
-        jButtonViewBooking.setText("View Booking");
+        jButtonViewBooking.setText("View / Cancel / Change Booking");
         jButtonViewBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonViewBookingActionPerformed(evt);
@@ -71,6 +71,11 @@ public class Menu extends javax.swing.JFrame {
         jButtonLearnerReport.setText("Learner Report");
 
         jButtonCoachReport.setText("Coach Report");
+        jButtonCoachReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCoachReportActionPerformed(evt);
+            }
+        });
 
         jButtonReview.setText("Review");
 
@@ -112,7 +117,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jButtonBookingSlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonViewBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonAttend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonRegistration, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                    .addComponent(jButtonRegistration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -186,6 +191,13 @@ public class Menu extends javax.swing.JFrame {
         attend.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonAttendActionPerformed
+
+    private void jButtonCoachReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoachReportActionPerformed
+        // TODO add your handling code here:
+        CoachReport cp = new CoachReport();
+        cp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonCoachReportActionPerformed
 
     /**
      * @param args the command line arguments
