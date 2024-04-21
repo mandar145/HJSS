@@ -238,21 +238,31 @@ public class Attend extends javax.swing.JFrame {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
+                // Check if line is a header
+                if (line.trim().startsWith("StudentID")) {
+                    // If it's a header, skip this iteration
+                    continue;
+                }
                 String[] data = line.split(",");
                 if (data.length == 8) {
-                    int id = Integer.parseInt(data[0]);
-                    int Week = Integer.parseInt(data[1]);
-                    String dayTime = data[2];
-                    String Time = data[3];
-                    String coachName = data[4];
-                    int level = Integer.parseInt(data[5]);
-                    String status = data[6];
-                    String bookingID = data[7];
-                    bookingsList.add(new BookingInfo(Week, dayTime, Time, coachName, level, id, status, bookingID));
+                    try {
+                        int id = Integer.parseInt(data[0]);
+                        int Week = Integer.parseInt(data[1]);
+                        String dayTime = data[2];
+                        String Time = data[3];
+                        String coachName = data[4];
+                        int level = Integer.parseInt(data[5]);
+                        String status = data[6];
+                        String bookingID = data[7];
+                        bookingsList.add(new BookingInfo(Week, dayTime, Time, coachName, level, id, status, bookingID));
+                    } catch (NumberFormatException e) {
+                        // Handle the case where parsing fails
+                        System.out.println("Error parsing booking data: " + e.getMessage());
+                    }
                 }
             }
         } catch (IOException e) {
-            jTextAreaDisplay.setText("Error reading the bookings file: " + e.getMessage());
+            System.out.println("Error reading the bookings file: " + e.getMessage());
         }
         return bookingsList;
     }
@@ -275,8 +285,12 @@ public class Attend extends javax.swing.JFrame {
                 isMatchFound = true;
                 if (booking.studentLevel < 5) {
                     booking.studentLevel++;
+                    // Now update the student level only if it is less than 5
+                    if (studentLevel < 5) {
+                        studentLevel++;
+                    }
                 }
-                System.out.println("Booking attended!");
+                System.out.println("Booking attended! You have upgraded to Grade: " + studentLevel);
                 feedbackpannel.setVisible(true);
                 break;
             }

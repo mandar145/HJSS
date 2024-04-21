@@ -274,7 +274,7 @@ public class ViewBookings extends javax.swing.JFrame {
 
     //////////////////////Display all the data ////////////////
     private void displayBookings(List<BookingInfo> bookings) {
-        bookingComboBox.removeAllItems();
+        bookingComboBox.removeAllItems(); // Clear the combo box before adding items
         if (bookings.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No bookings found.");
             jButtondelete.setEnabled(false);
@@ -308,13 +308,20 @@ public class ViewBookings extends javax.swing.JFrame {
         int selectedIndex = bookingComboBox.getSelectedIndex();
         if (selectedIndex >= 0) {
             List<BookingInfo> allBookings = getBookingsFromCSV();
-            allBookings.remove(selectedIndex);
-            saveBookingsToCSV(allBookings);
-            bookingComboBox.removeItemAt(selectedIndex);
-            JOptionPane.showMessageDialog(this, "Booking Deleted successfully !!.");
+            if (!allBookings.isEmpty() && selectedIndex < allBookings.size()) {
+                allBookings.remove(selectedIndex);
+                saveBookingsToCSV(allBookings);
+                reloadBookingsFromCSV(); // Reload the bookings from CSV
+                JOptionPane.showMessageDialog(this, "Booking Deleted successfully !!.");
+            }
         }
     }//GEN-LAST:event_jButtondeleteActionPerformed
 
+    private void reloadBookingsFromCSV() {
+    List<BookingInfo> allBookings = getBookingsFromCSV();
+    displayBookings(allBookings); // Refresh the ComboBox with updated list
+}
+    
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
         boolean isVisible = UpdatePanel.isVisible();
@@ -338,15 +345,14 @@ public class ViewBookings extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Booking updated successfully.");
             displayBookings(allBookings); // Refresh the ComboBox display
             cleardisplay();
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "No booking selected to update.", "Update Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_updatechangebookingActionPerformed
 
-    public void cleardisplay()
-    {
-        
+    public void cleardisplay() {
+
         UpdatePanel.setVisible(false);
     }
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
