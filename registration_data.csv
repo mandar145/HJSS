@@ -1,2 +1,19 @@
 StudentID,Name,Gender,Age,Level,Number,Email,EmergencyContact
 4528,Mandar,Male,10,2,9224342152,smandar@gmail.com,9224589789
+4529,Emily ,Female,5,3,2034567890,emily.johnson@example.com,2034567890
+4530,Michael ,Male,6,4,9145123456,michael.smith@example.com,9145123456
+4531,Sofia,Female,7,5,3058675309,sofia.martinez@example.com,3058675309
+4532,Liam,Male,8,1,7021234567,liam.brown@example.com,7021234567
+4533,Nora,Female,9,2,4159801123,nora.lee@example.com,4159801123
+4534,Oliver,Male,11,3,6182945876,oliver.garcia@example.com,6182945876
+4535,Maya,Female,5,4,5093347852,maya.patel@example.com,5093347852
+4536,Ethan,Male,6,5,3124425681,ethan.wilson@example.com,3124425681
+4537,Ava,Female,7,1,4075912045,ava.robinson@example.com,4075912045
+4538,Noah,Male,8,2,2534678910,noah.kim@example.com,2534678910
+4539,Isabella,Female,9,3,5207063451,isabella.davis@example.com,5207063451
+4540,Lucas,Male,10,4,2158740605,lucas.nguyen@example.com,2158740605
+4541,Mia,Female,8,5,3239854078,mia.thompson@example.com,3239854078
+4542,Aiden,Male,7,2,6462349087,aiden.jones@example.com,6462349087
+3439,Hitesh,Male,5,3,9224342152,hitesh@example.com,9224342152
+null,null,null,null,null,null,null,null
+9950,Hitesh,Male,5,1,9224342152,hitesh@example.com,9224342152

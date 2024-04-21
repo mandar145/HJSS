@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -87,7 +88,7 @@ public class Registration extends javax.swing.JFrame {
 
         jLabel4.setText("Level");
 
-        jLabel5.setText("Number");
+        jLabel5.setText("Phone Number");
 
         jLabel6.setText("Email");
 
@@ -285,10 +286,25 @@ public class Registration extends javax.swing.JFrame {
             }
 
             int level = Integer.parseInt(levelTxT.getText());
+            //phone validation
             Long number = Long.parseLong(numberTxT.getText());
+            String phoneNumber = numberTxT.getText();
+            if (!phoneNumber.matches("\\d{10}")) {
+                JOptionPane.showMessageDialog(this, "Phone number must be 10 digits.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //Email Validation
             String email = EmailTxT.getText();
-            // Assume you have a text field for emergency contact now
-            String emergencyContact = emergencyContactTxT.getText(); // Replace `emergencyContactTxT` with your actual text field's name
+            if (!email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
+                JOptionPane.showMessageDialog(this, "Invalid email format.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            // emergency contact validation
+            String emergencyContact = emergencyContactTxT.getText();
+            if (!emergencyContact.matches("\\d{10}")) {
+                JOptionPane.showMessageDialog(this, "Emergency contact must be 10 digits.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Update the constructor call to include gender and emergency contact
             Learner regcode = new Learner(name, gender, age, level, number, emergencyContact);
@@ -307,7 +323,7 @@ public class Registration extends javax.swing.JFrame {
             record.put("EmergencyContact", emergencyContact); // Store emergency contact
 
             lblstatus.setText("Registration Successful !!");
-            lblstatus.setForeground(Color.green);
+            lblstatus.setForeground(new Color(0, 100, 0));
             lblstatus.setVisible(true);
             jButtonNextPage.setVisible(true);
 

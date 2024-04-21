@@ -270,9 +270,15 @@ public class BookSlot extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "You can only book lessons for your current level or one level higher.", "Grade Level Error", JOptionPane.ERROR_MESSAGE);
             return; // Stop further execution if the grade level is not correct
         }
+
         // Check for duplicate bookings
         if (isDuplicateOrLimitReached(Week, selectedDay, selectedTime)) {
             return;
+        }
+        // Validate slot availability 
+        if (!checkSlotAvailability(Week, selectedDay, selectedTime)) {
+            JOptionPane.showMessageDialog(this, "This slot is already fully booked for the selected week.", "Booking Error", JOptionPane.ERROR_MESSAGE);
+            return; // Stop the booking process
         }
 
         status = "booked";
@@ -307,9 +313,20 @@ public class BookSlot extends javax.swing.JFrame {
         }
     }
 
+    private boolean checkSlotAvailability(int week, String selectedDay, String selectedTime) {
+        int slotCount = 0;
+        for (BookingInfo booking : getBookingsFromCSV()) {
+            if (booking.Week == week && booking.DayTime.equals(selectedDay) && booking.Time.equals(selectedTime) && booking.status.equalsIgnoreCase("booked")) {
+                slotCount++;
+            }
+        }
+        return slotCount < 4; // If less than 4 bookings, slot is available
+    }
+
     //Function for isDuplicateOrLimitReached
     private boolean isDuplicateOrLimitReached(int week, String day, String time) {
         // Get the bookings for the current student or initialize if not present
+        int count = 0;
         List<BookingInfo> bookingsList = studentBookings.get(studentID);
         if (bookingsList == null) {
             bookingsList = new ArrayList<>(); // Initialize if null
@@ -321,6 +338,7 @@ public class BookSlot extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "You have already booked this slot.", "Booking Error", JOptionPane.ERROR_MESSAGE);
                 return true;
             }
+
         }
         return false;
     }
@@ -441,30 +459,6 @@ public class BookSlot extends javax.swing.JFrame {
         // TODO add your handling code here:
         updateTimesBasedOnDayAndCoach();
     }//GEN-LAST:event_comboBoxCoachNameActionPerformed
-//    private void updateTimesBasedOnCoach() {
-//        String selectedCoach = comboBoxCoachName.getSelectedItem().toString();
-//        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-//
-//        switch (selectedCoach) {
-//            case "Coach A":
-//                model.addElement("4-5pm");
-//                break;
-//            case "Coach B":
-//                model.addElement("5-6pm");
-//                break;
-//            case "Coach C":
-//                model.addElement("6-7pm");
-//                break;
-//            case "Coach D":
-//                model.addElement("2-3pm");
-//                model.addElement("3-4pm");
-//                break;
-//        }
-//
-//        jComboBoxTime.setModel(model);
-//    }
-//
-// 
 
     /**
      * @param args the command line arguments
