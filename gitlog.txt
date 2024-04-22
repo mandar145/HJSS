@@ -1,3 +1,63 @@
+commit 3ae1b7da0c8c6cb993c0ce2e0f60f490e12403fb
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Mon Apr 22 00:16:51 2024 +0100
+
+    final commit
+
+commit 4fc87c4e82704285e3af5a5aa6ac1a4edaf89a33
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Sun Apr 21 21:38:02 2024 +0100
+
+    all functionalities and validaations added sucessfully !!
+
+commit 868b29b52e8f77ece75dfc728ec91020536e4bd9
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Sun Apr 21 03:00:55 2024 +0100
+
+    learner report , coach report sucessfully developed
+
+commit 76f658f3fadd99ddbbaa0d8a9feb1dbb35eb8c6f
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Sun Apr 21 01:03:41 2024 +0100
+
+    coach report created and feedback rating modified
+
+commit 4fcc3279e1b6ef47373d54fc0a21e65082832347
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Sat Apr 20 00:29:19 2024 +0100
+
+    modified viewbooking with cancelation / delete / update bookings feature
+
+commit 2aa2efcf39a89a0c80d084a2632e0844536e3fd6
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Fri Apr 19 22:21:23 2024 +0100
+
+    grade increment added, book slot modified with new functionality (Lession can be sort by day,Coachname and grade)
+
+commit 27702fd0194abf8aa3338886f25455debe09a625
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Fri Apr 19 03:03:47 2024 +0100
+
+    attend functionality added
+
+commit cbcf962de3e105b88ae75f9165c91d41087eb77a
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Fri Apr 19 02:03:43 2024 +0100
+
+    learner grade validation complete
+
+commit 6f8a95333cbfd32685ea45e7d8cde80b4056bf33
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Fri Apr 19 00:58:11 2024 +0100
+
+    bookslot, booking info and view booking page updated with Booking ID
+
+commit 9e7858412d008e85a2756d91ea5966fabd86fee4
+Author: mandar145 <cmandar41@gmail.com>
+Date:   Wed Apr 17 23:10:50 2024 +0100
+
+    new features added to view booking and delete bookings
+
 commit d7a2db268835e2d51baa31c65951f56b109081b6
 Author: mandar145 <cmandar41@gmail.com>
 Date:   Fri Apr 12 23:04:47 2024 +0100

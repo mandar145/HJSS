@@ -94,5 +94,8 @@ public class Learner {
     public int getID() {
         return ID;
     }
+    public List<BookingInfo> getBookings() {
+    return new ArrayList<>(bookings);  
+}
     
 }
